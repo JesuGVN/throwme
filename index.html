@@ -1,0 +1,102 @@
+<!-- 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - 
+-   Дата начала разработки: 29.07.19 | 13-55        -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - 
+-->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ведется разработка | Остовайтесь с нами:3</title>
+	<meta charset="utf-8">
+
+	<!-- Подключаем библиотеку bootstrap v4 -->
+	<link rel="stylesheet" type="text/css" href="./assets/bootstrap/css/bootstrap.css">
+	<!-- Подключаем основной файл стилей -->
+	<link rel="stylesheet" type="text/css" href="./styles/style.css">
+
+	<!-- Подключаем jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- 	<link rel="stylesheet" href="./assets/font-awesome/css/fontawesome.css">
+	<script src="./assets/font-awesome/js/fontawesome.js"></script> -->
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+	<div class="page-wrapper">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="navigation-bar col-md-12 col-sm-12 col-12">
+					<!-- Навигация -->
+					<div class="logo-block col-md-3 col-sm-3 col-3">
+						<a href="#">
+							<img src="./logo.png" alt="site-logo" height="50">
+						</a>
+					</div>
+					<div class="nav">
+						<ul>
+							<li><a href="#">Главная</a></li>
+							<li><a href="#">Тарифы</a></li>
+							<li><a href="#">История</a></li>
+							<li><a href="#">FAQ</a></li>
+							<li><a href="#">Новости</a></li>
+							<li><a id="subscribe" href="#"><div>ПОДПИСКА</div></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="clear-fix col-md-12 col-sm-12"></div>
+				<div class="content-bar col-md-12 col-sm-12">
+					<!-- Контентная часть -->
+					<div class="nav-bar-left col-md-3 col-sm-3 col-3">
+						<!-- Кнопки и Инфо о пользователе -->
+
+						<div class="user-info">
+							<div class="avatar-zone">
+								<img id="user_avatar" src="https://pp.userapi.com/c849336/v849336257/5b944/xqmsnY63jXI.jpg" alt="user.png" height="50">
+							</div>
+							<div class="info-zone">
+								<h6 id="user_name">👽JESUSGVN</h6>
+								<h5 id="user_balance">💰2000 руб.</h5>
+							</div>
+
+							<div class="pay-button-zone">
+								<button>Пополнить</button>
+								<button>Вывести</button>
+							</div>
+						</div>
+					</div>
+					<div class="game-bar col-md-8 col-sm-8 col-8">
+						<!-- Визульная игровая зона -->
+					</div>
+				</div>
+				<div class="last-game-bar">
+					<!-- Последние Игры -->
+				</div>
+				<div class="footer">
+					<!-- Подвал Сайта -->
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+	<script type="text/javascript" src="./assets/bootstrap/js/bootstrap.js"></script>
+
+	<!-- Основной js сценарий -->
+	<script type="text/javascript" src="./js/script.js"></script>
+
+
+</html>
+
+
+<script>
+	
+	setInterval(function(){
+		console.log('Raloding...');
+		// document.location.reload(true);
+	},3500)
+
+</script>

@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css?family=Fira+Code|Open+Sans|Roboto&display=swap');
+/*
+
+font-family: 'Fira Code', monospace;
+font-family: 'Roboto', sans-serif;
+font-family: 'Open Sans', sans-serif;
+
+*/
+
+
+
+
+html,body{
+	padding: 0;
+	margin: 0;
+
+	background: #0B0D19;
+}
+
+i{
+	color: #fefefe;
+}
+.clear-fix{
+	height: 70px;
+	clear: both;
+	z-index: 0;
+}
+
+.page-wrapper{
+	/* code ...*/
+}
+
+	.page-wrapper .navigation-bar{
+		position: fixed;
+		background: #131524;
+		padding: 5px;
+
+		z-index: 200;
+	}
+		.page-wrapper .navigation-bar .logo-block{
+			color: #FF0033;
+			font-size: 26px;
+			padding-left: 20px;
+			float: left;
+		}
+		.page-wrapper .navigation-bar .nav{
+			padding-right: 20px;
+			float: right;
+
+		}
+			.page-wrapper .navigation-bar .nav ul{
+				display: inline-block;
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+				.page-wrapper .navigation-bar .nav ul li{
+					display: inline-block;
+					margin: 10px;
+
+					font-family: 'Open Sans', sans-serif;
+				}
+					.page-wrapper .navigation-bar .nav ul li a{
+						text-decoration: none;
+						color: #7B7D89;
+						transition: all 0.5s;
+					}
+					.page-wrapper .navigation-bar .nav ul li a:hover{
+						color: #FF0033;
+					}
+					.page-wrapper .navigation-bar .nav ul li #subscribe div{
+						display: block;
+						width: 120px;
+						background: #f24b18;
+
+						color: #fefefe;
+						font-family: 'Fira Code', monospace;
+						text-align: center;
+
+						padding: 5px;
+						transition: all 0.5s;
+
+					}
+					.page-wrapper .navigation-bar .nav ul li #subscribe div:hover{
+						background: #f52c2c;
+						width: 190px;
+
+					}
+
+	.page-wrapper .content-bar{
+		margin-top: 15px;
+	}
+		.page-wrapper .content-bar .nav-bar-left{
+			background: #131524;
+			padding: 15px;
+			
+			color: #DBDBDB;
+			max-height: 500px;
+
+			font-family: 'Roboto', sans-serif;
+			text-align: center;
+			float: left;
+		} 
+		  .page-wrapper .content-bar .nav-bar-left .user-info{
+		  	/*display: block;*/
+		  	width: 80%;
+		  	margin: 0 auto;
+		  }
+			.page-wrapper .content-bar .nav-bar-left .avatar-zone{
+				border-radius: 100px;
+				background: #0B0D19;
+				width: 50px;
+				height: 50px;
+				margin: 0 auto;
+				padding: 0;
+				overflow: hidden;
+
+				float: left;
+			}
+				.page-wrapper .content-bar .nav-bar-left .avatar-zone #user_avatar{
+					/*position: relative;*/
+					
+					
+					float: left;
+				}
+			.page-wrapper .content-bar .nav-bar-left .info-zone{
+				/*padding: 10px;*/
+				margin-left: 15px;
+				text-align: left;
+				float: left;
+			}
+				.page-wrapper .content-bar .nav-bar-left .pay-button-zone button{
+					border-radius: 5px;
+					border: none;
+
+					width: 100px;
+					color: #fefefe;
+					background: #DC0232;
+
+					margin: 10px 18px 0px 0px;
+
+					outline: none;
+
+					transition: all 0.2s;
+				}	
+					.page-wrapper .content-bar .nav-bar-left .pay-button-zone button:hover{
+						background: #F24B18;
+					}
+				.page-wrapper .content-bar .nav-bar-left .info-zone #user_name{
+					color: #595B69;
+				}
+				.page-wrapper .content-bar .nav-bar-left .info-zone #user_balance{
+					color: #C4C5C8;
+				}
+		.page-wrapper .content-bar .game-bar{
+			background: #131524;
+			padding: 15px;
+
+			max-height: 500px;
+			float: right; 
+		}
