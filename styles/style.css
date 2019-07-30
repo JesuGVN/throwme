@@ -1,9 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Code|Open+Sans|Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Aldrich|Press+Start+2P|VT323&display=swap');
 /*
 
 font-family: 'Fira Code', monospace;
 font-family: 'Roboto', sans-serif;
 font-family: 'Open Sans', sans-serif;
+
+font-family: 'Aldrich', sans-serif;
+font-family: 'VT323', monospace;
+font-family: 'Press Start 2P', cursive;
 
 */
 
@@ -17,15 +22,12 @@ html,body{
 	background: #0B0D19;
 }
 
-i{
-	color: #fefefe;
-}
+
 .clear-fix{
 	height: 70px;
 	clear: both;
 	z-index: 0;
 }
-
 .page-wrapper{
 	/* code ...*/
 }
@@ -65,8 +67,11 @@ i{
 						color: #7B7D89;
 						transition: all 0.5s;
 					}
+					.page-wrapper .navigation-bar .nav ul li .active{
+						color: #DC0232;
+					}
 					.page-wrapper .navigation-bar .nav ul li a:hover{
-						color: #FF0033;
+						color: #DC0232;
 					}
 					.page-wrapper .navigation-bar .nav ul li #subscribe div{
 						display: block;
@@ -88,14 +93,12 @@ i{
 					}
 
 	.page-wrapper .content-bar{
-		margin-top: 15px;
+		margin-top: 25px;
 	}
 		.page-wrapper .content-bar .nav-bar-left{
-			background: #131524;
-			padding: 15px;
 			
 			color: #DBDBDB;
-			max-height: 500px;
+			max-height: 600px;
 
 			font-family: 'Roboto', sans-serif;
 			text-align: center;
@@ -103,11 +106,13 @@ i{
 		} 
 		  .page-wrapper .content-bar .nav-bar-left .user-info{
 		  	/*display: block;*/
-		  	width: 80%;
-		  	margin: 0 auto;
+		  	background: #131524;
+			padding: 25px;
+		  	margin: 0 auto 10px;
 		  }
 			.page-wrapper .content-bar .nav-bar-left .avatar-zone{
 				border-radius: 100px;
+				border: 1px solid #4B4D59;
 				background: #0B0D19;
 				width: 50px;
 				height: 50px;
@@ -118,9 +123,6 @@ i{
 				float: left;
 			}
 				.page-wrapper .content-bar .nav-bar-left .avatar-zone #user_avatar{
-					/*position: relative;*/
-					
-					
 					float: left;
 				}
 			.page-wrapper .content-bar .nav-bar-left .info-zone{
@@ -148,14 +150,177 @@ i{
 					}
 				.page-wrapper .content-bar .nav-bar-left .info-zone #user_name{
 					color: #595B69;
+					font-family: 'Press Start 2P', cursive;
+					font-size: 12px;
 				}
+					.page-wrapper .content-bar .nav-bar-left .info-zone #user_name b{
+						font-size: 18px;
+					}
 				.page-wrapper .content-bar .nav-bar-left .info-zone #user_balance{
 					color: #C4C5C8;
 				}
+		
+		   .page-wrapper .content-bar .nav-bar-left .nav-bar-menu{
+		   	    background: #131524;
+				padding: 25px;
+			  	margin: 0 auto 10px;
+
+			  	text-align: left;
+		   }
+		   	.page-wrapper .content-bar .nav-bar-left .nav-bar-menu ul{
+		   		margin: 0;
+		   		padding: 0;
+		   		list-style: none;
+		   	}
+		   		.page-wrapper .content-bar .nav-bar-left .nav-bar-menu ul li{
+					margin: 20px;
+					padding-left: 10px;
+		   		}
+		   		.page-wrapper .content-bar .nav-bar-left .nav-bar-menu ul li a{
+		   			text-decoration: none;
+					color: #7B7D89;
+					transition: all 0.5s;
+		   		}
+		   			.page-wrapper .content-bar .nav-bar-left .nav-bar-menu ul li a:hover{
+		   				color: #DC0232;
+		   			}
+		   			.page-wrapper .content-bar .nav-bar-left .nav-bar-menu ul li .active{
+		   				color: #DC0232;
+		   			}
+
+
+
 		.page-wrapper .content-bar .game-bar{
 			background: #131524;
 			padding: 15px;
 
-			max-height: 500px;
-			float: right; 
+			margin-bottom: 15px;
+			
+			color: #fefefe;
+			/*max-height: 500px;*/
+			float: left; 
 		}
+			.page-wrapper .content-bar .game-bar .session-owner{
+				/* code ... */
+				text-align: center;
+			}
+				.page-wrapper .content-bar .game-bar .session-owner .user-avatar{
+					border-radius: 1000px;
+					border: 2px solid #C42D1B;
+					background: #0B0D19;
+					width: 100px;
+					height: 100px;
+					margin: 0 auto;
+					padding: 0;
+					overflow: hidden;
+				}
+				.page-wrapper .content-bar .game-bar .session-owner .user-name{
+					color: #595B69;
+
+					/*width: 250px;*/
+					/*margin: 0 auto;*/
+					padding: 5px;
+
+					font-family: 'Press Start 2P', cursive;
+					font-size: 13px;
+					text-align: center;
+				}
+					.page-wrapper .content-bar .game-bar .session-owner .user-name b{
+						font-size: 20px;
+					}
+
+			.page-wrapper .content-bar .game-bar .regular-users{
+				margin-top: 50px;
+
+			}
+
+					.page-wrapper .content-bar .game-bar .regular-users  .user{
+						padding: 5px;
+						text-align: center;
+					}
+						.page-wrapper .content-bar .game-bar .regular-users .user .user-avatar{
+							border-radius: 1000px;
+							border: 2px solid #C42D1B;
+							background: #0B0D19;
+							width: 60px;
+							height: 60px;
+							margin: 0 auto;
+							padding: 0;
+							overflow: hidden;
+							
+						}
+						.page-wrapper .content-bar .game-bar .regular-users .user .payed{
+							border: 2px solid #53C41B;
+						}
+						.page-wrapper .content-bar .game-bar .regular-users .user .user-name{
+							color: #595B69;
+
+							/*width: 220px;*/
+							/*margin: 0 auto;*/
+							padding: 5px;
+
+							font-family: 'Press Start 2P', cursive;
+							font-size: 10px;
+							text-align: center;
+						}
+							.page-wrapper .content-bar .game-bar .regular-users .user .user-name b{
+								font-size: 18px;
+							}
+
+			.page-wrapper .content-bar .score-block{
+				background: #131524;
+				padding: 15px;
+				
+				color: #fefefe;
+				/*max-height: 500px;*/
+				float: left; 
+			}
+				.page-wrapper .content-bar .score-block #lvl{
+					font-family: 'VT323', monospace;
+					text-align: left;
+					color: #FF6B38;
+				}
+				.page-wrapper .content-bar .score-block #throw_button{
+					/* code ...*/
+				}
+					.page-wrapper .content-bar .score-block #throw_button #throw{
+						border: none;
+						background: #37CE47;
+						color: #fefefe;
+
+						width: 100%;
+						margin: 0 auto;
+
+						padding: 10px;
+						outline: none;
+
+						cursor: pointer;
+
+						transition: all 0.3s;
+						font-family: 'Aldrich', sans-serif;
+					}
+					  .page-wrapper .content-bar .score-block #throw_button #throw:hover{
+					  	background: #FF0031;
+					  }
+				  .page-wrapper .content-bar .score-block .room-info{
+				  	/* code ...*/
+				  }
+				  	.page-wrapper .content-bar .score-block .room-info ul{
+				  		margin: 0;
+				  		padding: 0;
+
+				  		list-style: none;
+				  	}
+				  		.page-wrapper .content-bar .score-block .room-info ul li{
+				  			margin: 28px auto;
+				  			font-family: 'Press Start 2P', cursive;
+				  			font-size: 10px;
+				  			color: #8C8E9A;
+				  		}
+				  			.page-wrapper .content-bar .score-block .room-info ul li small{
+				  				color: #fefefe;
+				  			}
+
+
+
+
