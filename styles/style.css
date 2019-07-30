@@ -22,7 +22,11 @@ html,body{
 	background: #0B0D19;
 }
 
-
+#hr{
+	background: #DC0232;
+	height: 1px;
+	margin-bottom: 10px;
+}
 .clear-fix{
 	height: 70px;
 	clear: both;
@@ -120,6 +124,7 @@ html,body{
 				padding: 0;
 				overflow: hidden;
 
+				cursor: pointer;
 				float: left;
 			}
 				.page-wrapper .content-bar .nav-bar-left .avatar-zone #user_avatar{
@@ -212,6 +217,7 @@ html,body{
 					height: 100px;
 					margin: 0 auto;
 					padding: 0;
+					cursor: pointer;
 					overflow: hidden;
 				}
 				.page-wrapper .content-bar .game-bar .session-owner .user-name{
@@ -247,6 +253,8 @@ html,body{
 							margin: 0 auto;
 							padding: 0;
 							overflow: hidden;
+							cursor: pointer;
+
 							
 						}
 						.page-wrapper .content-bar .game-bar .regular-users .user .payed{
@@ -266,6 +274,22 @@ html,body{
 							.page-wrapper .content-bar .game-bar .regular-users .user .user-name b{
 								font-size: 18px;
 							}
+
+				.page-wrapper .content-bar .game-bar .description{
+					/* code ...*/
+					/*margin-bottom: 5px;*/
+					text-align: left;
+				}
+					.page-wrapper .content-bar .game-bar .description h4{
+						color: #FF6B38;
+						font-family: 'Press Start 2P', cursive;
+						font-size: 17px;
+					}
+					.page-wrapper .content-bar .game-bar .description p{
+						color: #9EA0AC;
+						font-family: 'Press Start 2P', cursive;
+						font-size: 10px;
+					}
 
 			.page-wrapper .content-bar .score-block{
 				background: #131524;
