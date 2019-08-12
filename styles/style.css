@@ -15,11 +15,25 @@ font-family: 'Press Start 2P', cursive;
 
 
 
+
+
 html,body{
 	padding: 0;
 	margin: 0;
 
 	background: #0B0D19;
+}
+
+body::-webkit-scrollbar {
+	    width: 4px;
+	    height: 1px;
+	    background: rgba(0, 0, 0, 0.1);
+}
+body::-webkit-scrollbar-thumb {
+    background-color: #303241;
+}
+body::-webkit-scrollbar-track {
+    border-width: 0;
 }
 
 #hr{
@@ -31,6 +45,10 @@ html,body{
 	height: 70px;
 	clear: both;
 	z-index: 0;
+}
+
+.blur{
+	filter: blur(15px);
 }
 .page-wrapper{
 	/* code ...*/
@@ -51,7 +69,7 @@ html,body{
 		}
 		.page-wrapper .navigation-bar .nav{
 			padding-right: 20px;
-			float: right;
+			/*float: right;*/
 
 		}
 			.page-wrapper .navigation-bar .nav ul{
@@ -77,66 +95,76 @@ html,body{
 					.page-wrapper .navigation-bar .nav ul li a:hover{
 						color: #DC0232;
 					}
-					.page-wrapper .navigation-bar .nav ul li #subscribe div{
+					.page-wrapper .navigation-bar .nav ul li #auth div{
 						display: block;
-						width: 120px;
-						background: #f24b18;
+						width: 190px;
+						background: #0B0D19;
 
-						color: #fefefe;
+						color: #8F919D;
+
+						border: 1px solid red;
 						font-family: 'Fira Code', monospace;
 						text-align: center;
+						font-size: 20px;
 
+						text-transform: uppercase;
 						padding: 5px;
 						transition: all 0.5s;
 
 					}
-					.page-wrapper .navigation-bar .nav ul li #subscribe div:hover{
+					.page-wrapper .navigation-bar .nav ul li #auth div:hover{
 						background: #f52c2c;
 						width: 190px;
 
 					}
+						.page-wrapper .navigation-bar .nav ul li #auth img{
+							display: inline-block;
+						}
 
-	.page-wrapper .content-bar{
-		margin-top: 25px;
-	}
-		.page-wrapper .content-bar .nav-bar-left{
+		.page-wrapper .nav-bar-left{
 			
 			color: #DBDBDB;
-			max-height: 600px;
 
 			font-family: 'Roboto', sans-serif;
 			text-align: center;
-			float: left;
+			/*float: left;*/
 		} 
-		  .page-wrapper .content-bar .nav-bar-left .user-info{
+		  .page-wrapper .nav-bar-left .user-info{
 		  	/*display: block;*/
 		  	background: #131524;
 			padding: 25px;
 		  	margin: 0 auto 10px;
+
+		  	font-family: cursive;
 		  }
-			.page-wrapper .content-bar .nav-bar-left .avatar-zone{
+			.page-wrapper .nav-bar-left .avatar-zone{
 				border-radius: 100px;
 				border: 1px solid #4B4D59;
 				background: #0B0D19;
 				width: 50px;
 				height: 50px;
-				margin: 0 auto;
+				margin: 5px;
 				padding: 0;
 				overflow: hidden;
 
 				cursor: pointer;
 				float: left;
 			}
-				.page-wrapper .content-bar .nav-bar-left .avatar-zone #user_avatar{
+				.page-wrapper .nav-bar-left .avatar-zone #user_avatar{
 					float: left;
 				}
-			.page-wrapper .content-bar .nav-bar-left .info-zone{
+			.page-wrapper .nav-bar-left .info-zone{
 				/*padding: 10px;*/
-				margin-left: 15px;
+				/*margin-left: 15px;*/
+				margin: 5px;
 				text-align: left;
 				float: left;
 			}
-				.page-wrapper .content-bar .nav-bar-left .pay-button-zone button{
+			  .page-wrapper .nav-bar-left .pay-button-zone{
+			  	margin: 0;
+			  	padding: 0;
+			  }
+				.page-wrapper .nav-bar-left .pay-button-zone button{
 					border-radius: 5px;
 					border: none;
 
@@ -150,66 +178,68 @@ html,body{
 
 					transition: all 0.2s;
 				}	
-					.page-wrapper .content-bar .nav-bar-left .pay-button-zone button:hover{
+					.page-wrapper .nav-bar-left .pay-button-zone button:hover{
 						background: #F24B18;
 					}
-				.page-wrapper .content-bar .nav-bar-left .info-zone #user_name{
+				.page-wrapper .nav-bar-left .info-zone #user_name{
 					color: #595B69;
-					font-family: 'Press Start 2P', cursive;
-					font-size: 12px;
+					font-family:  cursive;
+					font-size: 18px;
 				}
-					.page-wrapper .content-bar .nav-bar-left .info-zone #user_name b{
+					.page-wrapper .nav-bar-left .info-zone #user_name b{
 						font-size: 18px;
 					}
-				.page-wrapper .content-bar .nav-bar-left .info-zone #user_balance{
+				.page-wrapper .nav-bar-left .info-zone #user_balance{
 					color: #C4C5C8;
 				}
 		
-		   .page-wrapper .content-bar .nav-bar-left .nav-bar-menu{
+		   .page-wrapper .nav-bar-left .nav-bar-menu{
 		   	    background: #131524;
 				padding: 25px;
 			  	margin: 0 auto 10px;
 
 			  	text-align: left;
 		   }
-		   	.page-wrapper .content-bar .nav-bar-left .nav-bar-menu ul{
+		   	.page-wrapper .nav-bar-left .nav-bar-menu ul{
 		   		margin: 0;
 		   		padding: 0;
 		   		list-style: none;
 		   	}
-		   		.page-wrapper .content-bar .nav-bar-left .nav-bar-menu ul li{
+		   		.page-wrapper .nav-bar-left .nav-bar-menu ul li{
 					margin: 20px;
 					padding-left: 10px;
 		   		}
-		   		.page-wrapper .content-bar .nav-bar-left .nav-bar-menu ul li a{
+		   		.page-wrapper .nav-bar-left .nav-bar-menu ul li a{
 		   			text-decoration: none;
 					color: #7B7D89;
 					transition: all 0.5s;
 		   		}
-		   			.page-wrapper .content-bar .nav-bar-left .nav-bar-menu ul li a:hover{
+		   			.page-wrapper .nav-bar-left .nav-bar-menu ul li a:hover{
 		   				color: #DC0232;
 		   			}
-		   			.page-wrapper .content-bar .nav-bar-left .nav-bar-menu ul li .active{
+		   			.page-wrapper .nav-bar-left .nav-bar-menu ul li .active{
 		   				color: #DC0232;
 		   			}
 
 
 
-		.page-wrapper .content-bar .game-bar{
+		.page-wrapper .game-bar{
 			background: #131524;
 			padding: 15px;
 
 			margin-bottom: 15px;
 			
 			color: #fefefe;
-			/*max-height: 500px;*/
+			height: 410px;
+			max-height: 410px;
+
 			float: left; 
 		}
-			.page-wrapper .content-bar .game-bar .session-owner{
+			.page-wrapper .game-bar .session-owner{
 				/* code ... */
 				text-align: center;
 			}
-				.page-wrapper .content-bar .game-bar .session-owner .user-avatar{
+				.page-wrapper .game-bar .session-owner .user-avatar{
 					border-radius: 1000px;
 					border: 2px solid #C42D1B;
 					background: #0B0D19;
@@ -220,31 +250,31 @@ html,body{
 					cursor: pointer;
 					overflow: hidden;
 				}
-				.page-wrapper .content-bar .game-bar .session-owner .user-name{
+				.page-wrapper .game-bar .session-owner .user-name{
 					color: #595B69;
 
 					/*width: 250px;*/
 					/*margin: 0 auto;*/
 					padding: 5px;
 
-					font-family: 'Press Start 2P', cursive;
-					font-size: 13px;
+					font-family: cursive;;
+					font-size:  18px;
 					text-align: center;
 				}
-					.page-wrapper .content-bar .game-bar .session-owner .user-name b{
+					.page-wrapper .game-bar .session-owner .user-name b{
 						font-size: 20px;
 					}
 
-			.page-wrapper .content-bar .game-bar .regular-users{
+			.page-wrapper .game-bar .regular-users{
 				margin-top: 50px;
 
 			}
 
-					.page-wrapper .content-bar .game-bar .regular-users  .user{
+					.page-wrapper .game-bar .regular-users  .user{
 						padding: 5px;
 						text-align: center;
 					}
-						.page-wrapper .content-bar .game-bar .regular-users .user .user-avatar{
+						.page-wrapper .game-bar .regular-users .user .user-avatar{
 							border-radius: 1000px;
 							border: 2px solid #C42D1B;
 							background: #0B0D19;
@@ -257,57 +287,59 @@ html,body{
 
 							
 						}
-						.page-wrapper .content-bar .game-bar .regular-users .user .payed{
+						.page-wrapper .game-bar .regular-users .user .payed{
 							border: 2px solid #53C41B;
 						}
-						.page-wrapper .content-bar .game-bar .regular-users .user .user-name{
+						.page-wrapper .game-bar .regular-users .user .user-name{
 							color: #595B69;
 
 							/*width: 220px;*/
 							/*margin: 0 auto;*/
 							padding: 5px;
 
-							font-family: 'Press Start 2P', cursive;
-							font-size: 10px;
+							font-family: cursive;
+							font-size: 15px;
 							text-align: center;
 						}
-							.page-wrapper .content-bar .game-bar .regular-users .user .user-name b{
+							.page-wrapper .game-bar .regular-users .user .user-name b{
 								font-size: 18px;
 							}
 
-				.page-wrapper .content-bar .game-bar .description{
+				.page-wrapper .game-bar .description{
 					/* code ...*/
 					/*margin-bottom: 5px;*/
 					text-align: left;
 				}
-					.page-wrapper .content-bar .game-bar .description h4{
+					.page-wrapper  .game-bar .description h4{
 						color: #FF6B38;
-						font-family: 'Press Start 2P', cursive;
+						font-family: cursive;
 						font-size: 17px;
 					}
-					.page-wrapper .content-bar .game-bar .description p{
+					.page-wrapper .game-bar .description p{
 						color: #9EA0AC;
-						font-family: 'Press Start 2P', cursive;
-						font-size: 10px;
+						font-family: cursive;
+						font-size: 14px;
 					}
 
-			.page-wrapper .content-bar .score-block{
+			.page-wrapper  .score-block{
 				background: #131524;
 				padding: 15px;
 				
+				height: 410px;
+				max-height: 410px;
 				color: #fefefe;
 				/*max-height: 500px;*/
 				float: left; 
 			}
-				.page-wrapper .content-bar .score-block #lvl{
+				.page-wrapper  .score-block #lvl{
 					font-family: 'VT323', monospace;
 					text-align: left;
 					color: #FF6B38;
 				}
-				.page-wrapper .content-bar .score-block #throw_button{
+				.page-wrapper  .score-block #throw_button{
 					/* code ...*/
 				}
-					.page-wrapper .content-bar .score-block #throw_button #throw{
+					.page-wrapper  .score-block #throw_button #throw{
 						border: none;
 						background: #37CE47;
 						color: #fefefe;
@@ -321,30 +353,241 @@ html,body{
 						cursor: pointer;
 
 						transition: all 0.3s;
-						font-family: 'Aldrich', sans-serif;
+						font-family: sans-serif;
 					}
-					  .page-wrapper .content-bar .score-block #throw_button #throw:hover{
+					  .page-wrapper  .score-block #throw_button #throw:hover{
 					  	background: #FF0031;
 					  }
-				  .page-wrapper .content-bar .score-block .room-info{
+				  .page-wrapper  .score-block .room-info{
 				  	/* code ...*/
 				  }
-				  	.page-wrapper .content-bar .score-block .room-info ul{
+				  	.page-wrapper .score-block .room-info ul{
 				  		margin: 0;
 				  		padding: 0;
 
 				  		list-style: none;
 				  	}
-				  		.page-wrapper .content-bar .score-block .room-info ul li{
-				  			margin: 28px auto;
-				  			font-family: 'Press Start 2P', cursive;
-				  			font-size: 10px;
+				  		.page-wrapper  .score-block .room-info ul li{
+				  			margin: 20px auto;
+				  			font-family: cursive;
+				  			font-size: 15px;
 				  			color: #8C8E9A;
 				  		}
-				  			.page-wrapper .content-bar .score-block .room-info ul li small{
+				  			.page-wrapper  .score-block .room-info ul li small{
 				  				color: #fefefe;
 				  			}
+		.page-wrapper .last-game-bar{
+			/* code ...*/
+		}
+			.page-wrapper .last-game-bar .block{
+				background: #131524;
+				padding: 10px;
 
+				max-height: 500px;
+
+				overflow: scroll;
+
+				color: #fefefe;
+			}
+				.page-wrapper .last-game-bar .block h3{
+					color: #9B9DA9;
+					font-family: cursive;
+					font-size: 22px;
+				}
+
+					.page-wrapper .last-game-bar .block::-webkit-scrollbar {
+						    width: 2px;
+						    height: 1px;
+						    background: rgba(0, 0, 0, 0.4);
+					}
+					.page-wrapper .last-game-bar .block::-webkit-scrollbar-thumb {
+					    background-color: #ED3E20;
+					}
+					.page-wrapper .last-game-bar .block::-webkit-scrollbar-track {
+					    border-width: 0;
+					}
+				.page-wrapper .last-game-bar .block table{
+					/*border: 1px solid #fefefe;*/
+					color: #fefefe;
+				}
+					.page-wrapper .last-game-bar .block table th{
+						font-style: bold;
+						color: #ED4A18;
+					}
+					.page-wrapper .last-game-bar .block table td{
+						color: #888A98;
+					}
+
+	.page-wrapper .footer{
+		background: #131524;
+		margin-top: 10px;
+		padding: 15px;
+	}
+		.page-wrapper .footer small{
+			margin: 10px;
+			color: #8C8E9D;
+
+			font-family: cursive;
+			font-style: bold;
+		}
+		.page-wrapper .footer a{
+			text-decoration: none;
+			color: #A9ABBA;
+		}
+
+
+
+@media (min-width: 770px) and (max-width: 4000px){
+	.navigation-bar{
+		display: block;
+
+	}
+	.page-wrapper .navigation-bar .nav{
+		float: right;
+	}
+}
+
+@media (min-width: 0px) and (max-width: 770px){
+
+	.container-fluid{
+		/*width: 150%;*/
+	}
+	.navigation-bar{
+		display: none;
+		height: 0px;
+		background: none;
+		/*border-bottom: 1px solid #37CE47;*/
+	}
+	.show-menu{
+		position: absolute;
+		left: 20px;
+		top: 10px;
+		
+		cursor: pointer;
+
+		z-index: 999;
+
+	}
+		.navigation-bar .logo-block{
+			text-align: center;
+		}
+				.navigation-bar .nav{
+					text-align: center;
+					width: 90%;
+					margin: 0 auto;
+					/*background: rgba(0,0,0,0.5);*/
+					float: none;
+				}
+					.page-wrapper .navigation-bar .nav ul{
+						width: 98%;
+						margin: 50px auto;
+					}
+						.page-wrapper .navigation-bar .nav ul li{
+							display: block;
+							margin: 40px auto;
+						}
+							.page-wrapper .navigation-bar .nav ul li a{
+								font-size: 23px;
+							}
+							.page-wrapper .navigation-bar .nav ul li #auth div{
+								/*background: red;*/
+								width: 100%;
+								/*float: left;*/
+							}
+								.page-wrapper .navigation-bar .nav ul li #auth div:hover{
+									width: 100%;
+								}
+
+
+						.nav-bar-left, .game-bar, .room-score, .last-game-bar{
+							transition: all 0.3s;
+						}
+
+}
+
+
+
+@media (min-width: 0px) and (max-width: 340px){
+	.page-wrapper{
+		width: 135%;
+	}
+	.page-wrapper .last-game-bar .block{
+		width: 130%;
+	}
+
+	.page-wrapper .nav-bar-left .avatar-zone{
+		width: 70px;
+		height: 70px;
+	}
+
+	.page-wrapper .nav-bar-left .info-zone #user_name{
+		font-size: 25px;
+	}
+	.page-wrapper .nav-bar-left .info-zone #user-balance{
+		font-size: 28px;
+	}
+}
+
+@media (min-width: 340px) and (max-width: 365px){
+	.page-wrapper{
+		width: 115%;
+		margin-left: 8px;
+	}
+
+	.page-wrapper .last-game-bar .block{
+		width: 150%;
+	}
+	.nav-bar-left{
+		/*margin-left: 10px;*/
+	}
+
+	.page-wrapper .nav-bar-left .user-info{
+		padding: 5px;
+	}
+}
+@media (min-width: 767px) and (max-width: 1165px){
+	.page-wrapper .nav-bar-left .user-info{
+		padding: 3px;
+	}
+}
+
+@media (min-width: 500px) and (max-width: 766px){
+	.page-wrapper .nav-bar-left .user-info{
+		height: 150px;
+	}
+		.page-wrapper .nav-bar-left .info-zone{
+			width: 70%;
+			float: left;
+		}
+		.page-wrapper .nav-bar-left .avatar-zone{
+			float: left;
+		}
+		.page-wrapper .nav-bar-left .info-zone #user_name{
+		}
+		.page-wrapper .nav-bar-left .pay-button-zone{
+			margin: 0;
+			width: 100%;
+		}
+			.page-wrapper .nav-bar-left .pay-button-zone button{
+				width: 200px;
+			}
+}
+
+@media (min-width: 500px) and (max-width: 525px){
+	.page-wrapper .nav-bar-left .user-info{
+		height: 180px;
+	}
+	.page-wrapper .nav-bar-left .pay-button-zone button{
+				width: 250px;
+			}
+}
+
+@media (min-width: 0px) and (max-width: 574px){
+	.page-wrapper .game-bar .regular-users  .user{
+		width: 100px;
+		margin: 0 auto;
+	}
+}
 
 
 

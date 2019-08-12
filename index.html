@@ -10,6 +10,7 @@
 <head>
 	<title>Ведется разработка | Остовайтесь с нами:3</title>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
 
 	<!-- Подключаем библиотеку bootstrap v4 -->
 	<link rel="stylesheet" type="text/css" href="./assets/bootstrap/css/bootstrap.css">
@@ -24,14 +25,20 @@
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
+	<!-- Основной JS сценарий -->
+	<script src="./js/script.js"></script>
+
 </head>
 <body>
 	<div class="page-wrapper">
 		<div class="container-fluid">
-			<div class="row">
-				<div class="navigation-bar col-md-12 col-sm-12 col-12">
+			<div class="row justify-content-md-center justify-content-sm-center justify-content-xs-center">
+				<div class="show-menu">
+					<img src="./images/tree-menu.png" alt="menu.png" height="25">
+				</div>
+				<div class="navigation-bar col-md-12 col-sm-12 col-12 col-xs-12">
 					<!-- Навигация -->
-					<div class="logo-block col-md-3 col-sm-3 col-3">
+					<div class="logo-block col-md-3 col-sm-12 col-xs-12">
 						<a href="#">
 							<img src="./logo.png" alt="site-logo" height="50">
 						</a>
@@ -40,36 +47,37 @@
 						<ul>
 							<li><a href="#" class="active" >Главная</a></li>
 							<li><a href="#">Тарифы</a></li>
-							<li><a href="#">История</a></li>
-							<li><a href="#">FAQ</a></li>
+							<li><a href="#">История Выплат</a></li>
 							<li><a href="#">Новости</a></li>
-							<li><a id="subscribe" href="#"><div>ПОДПИСКА</div></a></li>
+							<li><a href="#">FAQ</a></li>
 						</ul>
 					</div>
 				</div>
-				<div class="clear-fix col-md-12 col-sm-12"></div>
 
+				<div class="clear-fix col-md-12 col-sm-12 col-xs-12"></div>
 
-				<div class="content-bar conainer col-md-12 col-sm-12 col-12">
-					<div class="row justify-content-md-center justify-content-sm-center">
-						
+	
 						<!-- Контентная часть -->
-						<div class="nav-bar-left col-md-3 col-sm-12 col-12">
+						<div class="nav-bar-left col-md-3 col-sm-12 col-xs-12 ">
 							<!-- Кнопки и Инфо о пользователе -->
 
-							<div class="user-info col-md-12 col-sm-12 col-12">
-								<div class="avatar-zone">
+							<div class="user-info ">
+
+								<div class="avatar-zone ">
 									<img id="user_avatar" src="https://pp.userapi.com/c849336/v849336257/5b944/xqmsnY63jXI.jpg" alt="user.png" height="50">
 								</div>
-								<div class="info-zone">
+
+								<div class="info-zone ">
 									<h6 id="user_name"><b>👽</b>Эдуард</h6>
 									<h5 id="user_balance">💰2000 руб.</h5>
 								</div>
 
-								<div class="pay-button-zone">
+
+								<div class="pay-button-zone ">
 									<button>Пополнить</button>
 									<button>Вывести</button>
 								</div>
+
 							</div>
 
 							<div class="nav-bar-menu">
@@ -81,7 +89,7 @@
 								</ul>
 							</div>
 						</div>
-						<div class="game-bar col-md-5 col-sm-12 col-12">
+						<div class="game-bar col-md-5 col-sm-12">
 							<!-- Визульная игровая зона -->
 							<div class="row justify-content-md-center justify-content-sm-center">
 								<div class="description col-md-11 col-sm-11 col-11">
@@ -89,9 +97,9 @@
 									<p>Чтобы скинуть N - сумму, нажмите кнопку <b style="color: #37CE47;">Отдать</b></p>
 								</div>
 
-								<div id="hr" class="col-md-12 col-sm-12 col-12"></div>
+								<div id="hr" class="col-md-12 col-sm-12"></div>
 
-								<div class="session-owner col-md-5">
+								<div class="session-owner col-md-5 col-sm-5">
 									<div class="user-avatar">
 										<img src="https://pp.userapi.com/c849336/v849336257/5b944/xqmsnY63jXI.jpg" height="100" alt="user.png"></img>
 									</div>
@@ -99,25 +107,25 @@
 									<!-- <small class="status">Собрано: 0 / 300</small> -->
 								</div>
 
-								<div class="regular-users col-md-12 col-sm-12 col-12">
+								<div class="regular-users col-md-12 col-sm-12 col-xs-12">
 
 									<div class="row justify-content-md-center justify-content-sm-center ustify-content-lg-center">
 
-										<div class="user col-md-3 col-sm-3 col-4">
+										<div class="user col-md-3 col-sm-3 col-xs-3">
 											<div class="user-avatar  payed">
 													<img src="https://pp.userapi.com/c857528/v857528639/2b71b/D98tHlAhJrI.jpg" height="80" alt="user.png"></img>
 											</div>
 											<h6 class="user-name ">Абрахам</h6>
 										</div>
 
-										<div class="user col-md-3 col-sm-3 col-4">
+										<div class="user col-md-3 col-sm-3 col-xs-3">
 											<div class="user-avatar ">
 												<img src="https://pp.userapi.com/c854120/v854120721/294e8/jQoj9cjVsE0.jpg" height="80" alt="user.png"></img>
 											</div>
 
 											<h6 class="user-name ">Вика</h6>
 										</div>
-										<div class="user col-md-3 col-sm-3 col-4">
+										<div class="user col-md-3 col-sm-3 col-xs-3">
 											<div class="user-avatar ">
 												<img src="https://pp.userapi.com/c853420/v853420390/9a3d1/QSKNXZVlCz4.jpg" height="80" alt="user.png"></img>
 											</div>
@@ -130,11 +138,11 @@
 							</div>
 						</div>
 
-						<div class="col-md-4 col-sm-12 col-12 room-score">
-							<div class="row justify-content-md-center justify-content-sm-center">
-								<div class="score-block col-md-11 col-sm-11">
-									<h3 id="lvl" class="col-md-12 col-sm-12 col-12">LEVEL 5</h3>
-									<div class="room-info col-md-12 col-sm-12 col-12">
+						<div class="col-md-4 col-sm-12 room-score">
+							<div class="row justify-content-md-center justify-content-sm-center justify-content-xs-center">
+								<div class="score-block col-md-11 col-sm-11 ">
+									<h3 id="lvl" class="col-md-12 col-sm-12">LEVEL 5</h3>
+									<div class="room-info col-md-12 col-sm-12">
 										<ul>
 											<li>ID Комнаты: <small>157987</small></li>
 											<li>Тип комнаты: <small style=" color: #37CE47">PRO</small></li>
@@ -144,19 +152,372 @@
 											<li>Статус: <small style="color: #FF0031">Не завершенно</small></li>
 										</ul>
 									</div>
-									<div id="throw_button" class="col-md-12 col-sm-12 col-12">
+									<div id="throw_button" class="col-md-12 col-sm-12">
 										<button id="throw">Отдать</button>
 									</div>
 								</div>
 							</div>
 						</div>
+					
+				
+				<div class="last-game-bar col-md-12 col-sm-12 col-xs-12">
+					<div class="row justify-content-md-end">
+						<div class="block col-md-9 col-sm-12 col-xs-12">
+							<h3>Последние действия</h3>
+							<table align="center" class="col-md-12 col-sm-12 col-xs-12">
+								<tr>
+									<th>Комната</th>
+									<th>Имя</th>
+									<th>Сумма</th>
+									<th>Тип</th>
+									<th>LVL</th>
+								</tr>
+								<tr>
+									<td>548789</td>
+									<td>Эдуард</td>
+									<td>300</td>
+									<td>PRO</td>
+									<td>5</td>
+								</tr>
+								<tr>
+									<td>157987</td>
+									<td>Абрахам</td>
+									<td>600</td>
+									<td>PRO</td>
+									<td>8</td>
+								</tr>
+								<tr>
+									<td>9875464</td>
+									<td>Микаса</td>
+									<td>40</td>
+									<td>Free</td>
+									<td>3</td>
+								</tr>
+								<tr>
+									<td>548789</td>
+									<td>Эдуард</td>
+									<td>300</td>
+									<td>PRO</td>
+									<td>5</td>
+								</tr>
+								<tr>
+									<td>157987</td>
+									<td>Абрахам</td>
+									<td>600</td>
+									<td>PRO</td>
+									<td>8</td>
+								</tr>
+								<tr>
+									<td>9875464</td>
+									<td>Микаса</td>
+									<td>40</td>
+									<td>Free</td>
+									<td>3</td>
+								</tr>
+								<tr>
+									<td>548789</td>
+									<td>Эдуард</td>
+									<td>300</td>
+									<td>PRO</td>
+									<td>5</td>
+								</tr>
+								<tr>
+									<td>157987</td>
+									<td>Абрахам</td>
+									<td>600</td>
+									<td>PRO</td>
+									<td>8</td>
+								</tr>
+								<tr>
+									<td>9875464</td>
+									<td>Микаса</td>
+									<td>40</td>
+									<td>Free</td>
+									<td>3</td>
+								</tr>
+								<tr>
+									<td>548789</td>
+									<td>Эдуард</td>
+									<td>300</td>
+									<td>PRO</td>
+									<td>5</td>
+								</tr>
+								<tr>
+									<td>157987</td>
+									<td>Абрахам</td>
+									<td>600</td>
+									<td>PRO</td>
+									<td>8</td>
+								</tr>
+								<tr>
+									<td>9875464</td>
+									<td>Микаса</td>
+									<td>40</td>
+									<td>Free</td>
+									<td>3</td>
+								</tr>
+								<tr>
+									<td>548789</td>
+									<td>Эдуард</td>
+									<td>300</td>
+									<td>PRO</td>
+									<td>5</td>
+								</tr>
+								<tr>
+									<td>157987</td>
+									<td>Абрахам</td>
+									<td>600</td>
+									<td>PRO</td>
+									<td>8</td>
+								</tr>
+								<tr>
+									<td>9875464</td>
+									<td>Микаса</td>
+									<td>40</td>
+									<td>Free</td>
+									<td>3</td>
+								</tr>
+								<tr>
+									<td>548789</td>
+									<td>Эдуард</td>
+									<td>300</td>
+									<td>PRO</td>
+									<td>5</td>
+								</tr>
+								<tr>
+									<td>157987</td>
+									<td>Абрахам</td>
+									<td>600</td>
+									<td>PRO</td>
+									<td>8</td>
+								</tr>
+								<tr>
+									<td>9875464</td>
+									<td>Микаса</td>
+									<td>40</td>
+									<td>Free</td>
+									<td>3</td>
+								</tr>
+								<tr>
+									<td>548789</td>
+									<td>Эдуард</td>
+									<td>300</td>
+									<td>PRO</td>
+									<td>5</td>
+								</tr>
+								<tr>
+									<td>157987</td>
+									<td>Абрахам</td>
+									<td>600</td>
+									<td>PRO</td>
+									<td>8</td>
+								</tr>
+								<tr>
+									<td>9875464</td>
+									<td>Микаса</td>
+									<td>40</td>
+									<td>Free</td>
+									<td>3</td>
+								</tr>
+								<tr>
+									<td>548789</td>
+									<td>Эдуард</td>
+									<td>300</td>
+									<td>PRO</td>
+									<td>5</td>
+								</tr>
+								<tr>
+									<td>157987</td>
+									<td>Абрахам</td>
+									<td>600</td>
+									<td>PRO</td>
+									<td>8</td>
+								</tr>
+								<tr>
+									<td>9875464</td>
+									<td>Микаса</td>
+									<td>40</td>
+									<td>Free</td>
+									<td>3</td>
+								</tr>
+								<tr>
+									<td>548789</td>
+									<td>Эдуард</td>
+									<td>300</td>
+									<td>PRO</td>
+									<td>5</td>
+								</tr>
+								<tr>
+									<td>157987</td>
+									<td>Абрахам</td>
+									<td>600</td>
+									<td>PRO</td>
+									<td>8</td>
+								</tr>
+								<tr>
+									<td>9875464</td>
+									<td>Микаса</td>
+									<td>40</td>
+									<td>Free</td>
+									<td>3</td>
+								</tr>
+								<tr>
+									<td>548789</td>
+									<td>Эдуард</td>
+									<td>300</td>
+									<td>PRO</td>
+									<td>5</td>
+								</tr>
+								<tr>
+									<td>157987</td>
+									<td>Абрахам</td>
+									<td>600</td>
+									<td>PRO</td>
+									<td>8</td>
+								</tr>
+								<tr>
+									<td>9875464</td>
+									<td>Микаса</td>
+									<td>40</td>
+									<td>Free</td>
+									<td>3</td>
+								</tr>
+								<tr>
+									<td>548789</td>
+									<td>Эдуард</td>
+									<td>300</td>
+									<td>PRO</td>
+									<td>5</td>
+								</tr>
+								<tr>
+									<td>157987</td>
+									<td>Абрахам</td>
+									<td>600</td>
+									<td>PRO</td>
+									<td>8</td>
+								</tr>
+								<tr>
+									<td>9875464</td>
+									<td>Микаса</td>
+									<td>40</td>
+									<td>Free</td>
+									<td>3</td>
+								</tr>
+								<tr>
+									<td>548789</td>
+									<td>Эдуард</td>
+									<td>300</td>
+									<td>PRO</td>
+									<td>5</td>
+								</tr>
+								<tr>
+									<td>157987</td>
+									<td>Абрахам</td>
+									<td>600</td>
+									<td>PRO</td>
+									<td>8</td>
+								</tr>
+								<tr>
+									<td>9875464</td>
+									<td>Микаса</td>
+									<td>40</td>
+									<td>Free</td>
+									<td>3</td>
+								</tr>
+								<tr>
+									<td>548789</td>
+									<td>Эдуард</td>
+									<td>300</td>
+									<td>PRO</td>
+									<td>5</td>
+								</tr>
+								<tr>
+									<td>157987</td>
+									<td>Абрахам</td>
+									<td>600</td>
+									<td>PRO</td>
+									<td>8</td>
+								</tr>
+								<tr>
+									<td>9875464</td>
+									<td>Микаса</td>
+									<td>40</td>
+									<td>Free</td>
+									<td>3</td>
+								</tr>
+								<tr>
+									<td>548789</td>
+									<td>Эдуард</td>
+									<td>300</td>
+									<td>PRO</td>
+									<td>5</td>
+								</tr>
+								<tr>
+									<td>157987</td>
+									<td>Абрахам</td>
+									<td>600</td>
+									<td>PRO</td>
+									<td>8</td>
+								</tr>
+								<tr>
+									<td>9875464</td>
+									<td>Микаса</td>
+									<td>40</td>
+									<td>Free</td>
+									<td>3</td>
+								</tr>
+								<tr>
+									<td>548789</td>
+									<td>Эдуард</td>
+									<td>300</td>
+									<td>PRO</td>
+									<td>5</td>
+								</tr>
+								<tr>
+									<td>157987</td>
+									<td>Абрахам</td>
+									<td>600</td>
+									<td>PRO</td>
+									<td>8</td>
+								</tr>
+								<tr>
+									<td>9875464</td>
+									<td>Микаса</td>
+									<td>40</td>
+									<td>Free</td>
+									<td>3</td>
+								</tr>
+								<tr>
+									<td>548789</td>
+									<td>Эдуард</td>
+									<td>300</td>
+									<td>PRO</td>
+									<td>5</td>
+								</tr>
+								<tr>
+									<td>157987</td>
+									<td>Абрахам</td>
+									<td>600</td>
+									<td>PRO</td>
+									<td>8</td>
+								</tr>
+								<tr>
+									<td>9875464</td>
+									<td>Микаса</td>
+									<td>40</td>
+									<td>Free</td>
+									<td>3</td>
+								</tr>
+
+
+							</table>
+						</div>
 					</div>
 				</div>
-				<div class="last-game-bar">
-					<!-- Последние Игры -->
-				</div>
-				<div class="footer">
+				<div class="footer col-md-12">
 					<!-- Подвал Сайта -->
+					<small>&copy THROWME 2019</small>
+					<a href="#">Пользовательское соглашение</a>
 				</div>
 			</div>
 		</div>
@@ -166,7 +527,7 @@
 	<script type="text/javascript" src="./assets/bootstrap/js/bootstrap.js"></script>
 
 	<!-- Основной js сценарий -->
-	<script type="text/javascript" src="./js/script.js"></script>
+	<!-- <script type="text/javascript" src="./js/script.js"></script> -->
 
 
 </html>
