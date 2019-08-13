@@ -437,6 +437,89 @@ body::-webkit-scrollbar-track {
 
 
 
+
+
+
+/* NOT AUTH PAGE */
+
+.page-wrapper .not-auth .auth{
+	height: 350px;
+
+	padding: 10px;
+	background: #131524;
+
+	margin-bottom: 15px;
+
+	text-align: center;
+}
+
+  .page-wrapper .not-auth .auth .block{
+  	margin-top: 90px;
+  }
+  	.page-wrapper .not-auth .auth img{
+  		display: none;
+  		margin-bottom: 50px;
+  	}
+	.page-wrapper .not-auth .auth p{
+		color: #898B97;
+	}
+	.page-wrapper .not-auth .auth a{
+		text-decoration: none;
+	}
+	.page-wrapper .not-auth .auth h4{
+		display: block;
+
+		width: 90%;
+
+		margin: 0 auto;
+		color: #898B97;
+	}
+		.page-wrapper .not-auth .auth button{
+			width: 250px;
+			height: 50px;
+
+			margin: 15px;
+
+			background: #ED4A1C;
+
+			border: none;
+			color: #fefefe;
+
+			outline: none;
+		}
+
+.page-wrapper .not-auth .about{
+	height: 350px;
+
+	padding: 10px;
+	background: #131524;
+
+	margin-bottom: 15px;
+
+	text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media (min-width: 770px) and (max-width: 4000px){
 	.navigation-bar{
 		display: block;
@@ -454,8 +537,8 @@ body::-webkit-scrollbar-track {
 	}
 	.navigation-bar{
 		display: none;
-		height: 0px;
-		background: none;
+		height: 100%
+		/*background: #FF844D;*/
 		/*border-bottom: 1px solid #37CE47;*/
 	}
 	.show-menu{
@@ -502,7 +585,38 @@ body::-webkit-scrollbar-track {
 						.nav-bar-left, .game-bar, .room-score, .last-game-bar{
 							transition: all 0.3s;
 						}
+							.page-wrapper  .score-block .room-info ul li{
+								font-family: 'Aldrich', sans-serif;
+								/*font-size: 15px;*/
+							}
 
+						.page-wrapper .nav-bar-left .info-zone #user_name{
+							font-family: 'Aldrich', sans-serif;
+
+						}
+						.page-wrapper .nav-bar-left .info-zone #user_balance{
+							font-family: 'Aldrich', sans-serif;
+						}
+						.page-wrapper .footer small{
+							font-family: 'Aldrich', sans-serif;
+						}
+
+
+/* **************** NOT AUTH PAGE  *****************/
+
+	.page-wrapper .not-auth .auth .block{
+		margin-top: 0;
+	}
+		.page-wrapper .not-auth .auth img{
+	  		display: block;
+
+	  		margin: 0 auto;
+	  	}
+	  	.page-wrapper .not-auth .auth h4{
+			margin-top: 30px;
+	  	}
+
+/****************************************************/
 }
 
 

@@ -42,18 +42,11 @@ $(document).ready(function(e){
 		
 		if(!i){  // false
 			menu.style.display 		  	= 'block';
-			navbar_left.style.filter  	= 'blur(5px)';
-			gamebar.style.filter      	= 'blur(5px)';
-			room_score.style.filter   	= 'blur(5px)';
-			last_gamebar.style.filter 	= 'blur(5px)';
-			body.style.overflow 	  	= 'hidden';
+			// menu.style.background 		= '#FF844D';
+			
 		}else{
 			menu.style.display 			= 'none';
-			navbar_left.style.filter 	= 'blur(0)';
-			gamebar.style.filter 	    = 'blur(0)';
-			room_score.style.filter 	= 'blur(0)';
-			last_gamebar.style.filter 	= 'blur(0)';
-			body.style.overflow 		= 'scroll';
+
 		}
 	}
 });
