@@ -330,6 +330,7 @@ body::-webkit-scrollbar-track {
 				color: #fefefe;
 				/*max-height: 500px;*/
 				float: left; 
+
 			}
 				.page-wrapper  .score-block #lvl{
 					font-family: 'VT323', monospace;
@@ -504,7 +505,141 @@ body::-webkit-scrollbar-track {
 
 
 
+.page-wrapper .lvl_list{
+		margin-bottom: 15px;
+		float: left; 
+		max-height: 410px;
+}
+	.page-wrapper .lvl_list .block{
+		background: #131524;
+		color: #fefefe;
 
+		height: 410px;
+		/*max-height: 410px;*/
+	}
+		.page-wrapper .lvl_list .block h3{
+			color: #9B9DA9;
+			margin: 5px;
+
+			/*box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Параметры тени */*/
+			padding: 5px;
+		}
+		.page-wrapper .lvl_list .block .list{
+			max-height: 350px;
+			height: 365px;
+
+			overflow-y: scroll;
+		}
+
+		    .page-wrapper .lvl_list .block .list::-webkit-scrollbar {
+			    width: 2px;
+			    height: 1px;
+			    background: rgba(0, 0, 0, 0.1);
+			}
+			.page-wrapper .lvl_list .block .list::-webkit-scrollbar-thumb {
+			    background-color: #ED3E20;
+			}
+			.page-wrapper .lvl_list .block .list::-webkit-scrollbar-track {
+			    border-width: 0;
+			}
+
+		.page-wrapper .lvl_list .block .list ul{
+			list-style: none;
+		}
+			.page-wrapper .lvl_list .block .list ul li{
+				display: inline-block;
+				transition: all 0.4s;
+			}
+				.page-wrapper .lvl_list .block .list ul li .element{
+					width: 100px;
+					height: 100px;
+					margin: 10px;
+					text-align: center;
+				}
+					.page-wrapper .lvl_list .block .list ul li .element img{
+						display: block;
+
+						width: 70px;
+						margin: 0 auto;
+
+						user-select: none;
+					}
+					.page-wrapper .lvl_list .block .list ul li .element button{
+						display: block;
+						margin-top: 5px;
+
+						width: 100%;
+						border: none;
+						border-radius: 4px;
+						background: #ED4A18;
+						color: #fefefe;
+
+						outline: none;
+
+						transition: all 0.3s;
+
+					}
+						.page-wrapper .lvl_list .block .list ul li .element button:hover{
+							background: #FF782F;
+						}
+
+
+
+.page-wrapper .lvl_info{
+
+		margin-bottom: 15px;
+		float: left; 
+}
+	.page-wrapper .lvl_info .block{
+		background: #131524;
+		color: #fefefe;
+
+		height: 410px;
+		max-height: 410px;
+		
+	}
+		.page-wrapper .lvl_info .block h1{
+			color: #FF5D2B;
+			font-family: 'VT323', monospace;
+			font-size: 40px;
+		}
+		.page-wrapper .lvl_info .block .info{
+			margin: 20px;
+		}
+		  	.page-wrapper .lvl_info .block .info ul{
+			  		margin: 0;
+			  		padding: 0;
+
+			  		list-style: none;
+			  	}
+			  		.page-wrapper .lvl_info .block .info ul li{
+			  			margin: 30px auto;
+			  			/*font-family: cursive;*/
+			  			font-size: 15px;
+			  			color: #8C8E9A;
+			  		}
+			  			.page-wrapper .lvl_info .block .info ul li small{
+			  				color: #fefefe;
+			  			}
+		.page-wrapper .lvl_info .block button{
+			position: absolute;
+			width: 90%;
+			background: #37C441;
+
+			border: none;
+			border-radius: 5px;
+
+			color: #fefefe;
+			padding: 10px;
+
+			bottom: 15px;
+
+			outline: none;
+			transition: all 0.3s;
+		}
+			.page-wrapper .lvl_info .block button:hover{
+				background: #1BA825;
+			}
 
 
 
@@ -531,6 +666,20 @@ body::-webkit-scrollbar-track {
 }
 
 @media (min-width: 0px) and (max-width: 770px){
+
+	.page-wrapper .lvl_list .block .list ul{
+		padding: 0;
+	}
+
+	.page-wrapper .lvl_list .block .list ul li{
+		width: 95px;
+		margin: 0 auto;
+	}
+
+	.page-wrapper .lvl_list .block .list ul li .element{
+		height: 85px;
+		width: 100%;
+	}
 
 	.container-fluid{
 		/*width: 150%;*/

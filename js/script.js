@@ -42,11 +42,8 @@ $(document).ready(function(e){
 		
 		if(!i){  // false
 			menu.style.display 		  	= 'block';
-			// menu.style.background 		= '#FF844D';
-			
 		}else{
 			menu.style.display 			= 'none';
-
 		}
 	}
 });
