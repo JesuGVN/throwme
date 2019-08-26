@@ -1,4 +1,6 @@
 <?
+
+
 require('libs/RedBeanPHP/rb.php');
 session_start();
 

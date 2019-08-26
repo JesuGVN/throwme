@@ -47,8 +47,16 @@ body::-webkit-scrollbar-track {
 	z-index: 0;
 }
 
+.clear{
+	clear: both;
+}
+
 .blur{
 	filter: blur(15px);
+}
+
+.work-zone{
+	float: left;
 }
 .page-wrapper{
 	/* code ...*/
@@ -321,7 +329,7 @@ body::-webkit-scrollbar-track {
 						font-size: 14px;
 					}
 
-			.page-wrapper  .score-block{
+			.page-wrapper .score-block{
 				background: #131524;
 				padding: 15px;
 				
@@ -329,9 +337,9 @@ body::-webkit-scrollbar-track {
 				max-height: 410px;
 				color: #fefefe;
 				/*max-height: 500px;*/
-				float: left; 
-
+				/*float: left; */
 			}
+
 				.page-wrapper  .score-block #lvl{
 					font-family: 'VT323', monospace;
 					text-align: left;
@@ -613,9 +621,9 @@ body::-webkit-scrollbar-track {
 			  		list-style: none;
 			  	}
 			  		.page-wrapper .lvl_info .block .info ul li{
-			  			margin: 30px auto;
+			  			margin: 20px auto;
 			  			/*font-family: cursive;*/
-			  			font-size: 15px;
+			  			font-size: 20px;
 			  			color: #8C8E9A;
 			  		}
 			  			.page-wrapper .lvl_info .block .info ul li small{
@@ -640,6 +648,24 @@ body::-webkit-scrollbar-track {
 			.page-wrapper .lvl_info .block button:hover{
 				background: #1BA825;
 			}
+
+
+.page-wrapper .loading_block{
+	display: none;
+
+	margin-bottom: 15px;
+	min-height: 410px;
+	height: 410px;
+
+	background: #131524;
+	color: #5C5E6D;
+
+	text-align: center;
+	float: left;
+}
+	.page-wrapper .loading_block h1{
+		margin-top: 155px;
+	}
 
 
 

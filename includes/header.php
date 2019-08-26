@@ -1,5 +1,6 @@
 <? 
-include('config.php');?>
+include('config.php');
+?>
 
 
 
@@ -24,6 +25,8 @@ include('config.php');?>
 
 	<!-- Подключаем jQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+	<script src="./libs/JQuery-Session-Plugin/jquery.session.js"></script>
 
 <!-- 	<link rel="stylesheet" href="./assets/font-awesome/css/fontawesome.css">
 	<script src="./assets/font-awesome/js/fontawesome.js"></script> -->
@@ -32,6 +35,7 @@ include('config.php');?>
 
 	<!-- Основной JS сценарий -->
 	<script src="./js/script.js"></script>
+	<script src="./js/game.js"></script>
 
 </head>
 <body>
