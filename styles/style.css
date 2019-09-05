@@ -57,6 +57,12 @@ body::-webkit-scrollbar-track {
 
 .work-zone{
 	float: left;
+	padding: 0;
+
+	user-select: none;
+}
+.error{
+	display: block;
 }
 .page-wrapper{
 	/* code ...*/
@@ -364,9 +370,6 @@ body::-webkit-scrollbar-track {
 						transition: all 0.3s;
 						font-family: sans-serif;
 					}
-					  .page-wrapper  .score-block #throw_button #throw:hover{
-					  	background: #FF0031;
-					  }
 				  .page-wrapper  .score-block .room-info{
 				  	/* code ...*/
 				  }

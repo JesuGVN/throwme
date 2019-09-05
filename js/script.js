@@ -76,9 +76,7 @@ $(document).ready(function(e){
 		  	
 		  	var userID = parseInt(data);
 
-
-
-			var loop = setInterval(function(){
+			window.loop = setInterval(function(){
 				if(LoadIs){
 					// Делаем запрос на сервер
 					// с проверкой свободных комнат
@@ -87,7 +85,41 @@ $(document).ready(function(e){
 				}else{
 					clearInterval(loop);
 				}
-			},2500);
+			},2000);
+
+	  		socket.on('searchError', function(data){
+				if(data){
+
+					clearInterval(window.loop);
+					var WorkZone = document.querySelector('.work-zone');
+					WorkZone.innerHTML = `
+						<div class="loading_block error col-md-12 col-sm-12" style="display: block">
+						    <h1 style="color: #E5671B;">Ошибка</h1>
+						    <p>Вы пытаетесь войти в 2 комнаты одновременно, завершите текущий уровень чтобы продолжиь.</p>
+						</div>
+					`;
+
+					var LoadBlock = document.querySelector('.loading_block');
+						LoadBlock.style.display = 'block';
+				}
+			});
+	  		socket.on('searchBalanceError', function(data){
+				if(data){
+
+					clearInterval(window.loop);
+					var WorkZone = document.querySelector('.work-zone');
+					WorkZone.innerHTML = `
+						<div class="loading_block error col-md-12 col-sm-12" style="display: block">
+						    <h1 style="color: #E5671B;">Ошибка</h1>
+						    <p>На вашем балансе недостаточно средств.</p>
+						    <a href="/">Назад</a>
+						</div>
+					`;
+
+					var LoadBlock = document.querySelector('.loading_block');
+						LoadBlock.style.display = 'block';
+				}
+			});
 		  }
 		});
 
@@ -146,25 +178,68 @@ $(document).ready(function(e){
 	socket.on('enterRoom', function(data){
 		if(data){
 			EnterRoom(data);
+			clearInterval(window.loop);
 		}
 	});
 
+	socket.on('enterHasOwner', function(data){
 
+		var WorkZone     = document.querySelector('.work-zone');
+		clearInterval(window.loop);
 
-
-	function EnterRoom(data){
-		var WorkZone = document.querySelector('.work-zone');
-
-
-		socket.emit('updateRoomInfo',data);
+		console.log(data.room.ID);
+		socket.emit('updateRoomInfo',{id: data.room.ID, own: true});
 		socket.on('getRoomInfo', function(data){
 			if(data){
 				WorkZone.innerHTML = data;
+				WorkZone.style.padding = '0 0 0 15px';
+
+				var ThrowButton  = document.querySelector('#throw');
+
+				ThrowButton.addEventListener('click', function(e){
+					alert('Вы не можите скинуть деньги так как вы создатель!');
+				});
+
 			}
 		});
 
 		socket.on('gameOver', function(e){
 		  // Вернуть в главное меню
+		  document.location.reload(true);
+		});
+	});
+
+	socket.on('test', function(e){
+		console.log(e);
+	})
+
+
+
+
+	function EnterRoom(data){
+		var WorkZone     = document.querySelector('.work-zone');
+		
+
+		socket.emit('updateRoomInfo',{id: data.room.ID, own: false});
+
+
+		socket.on('getRoomInfo', function(data){
+			if(data){
+				WorkZone.innerHTML = data;
+				WorkZone.style.padding = '0 0 0 15px';
+
+				var ThrowButton  = document.querySelector('#throw');
+
+				ThrowButton.addEventListener('click', function(e){
+					socket.emit('throwMoney',1);
+				});
+
+			}
+		});
+
+		socket.on('gameOver', function(e){
+		  // Вернуть в главное меню
+		  document.location.reload(true);
 		});
 	}
 

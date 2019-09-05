@@ -7,8 +7,11 @@ if(isset($_SESSION['logged_user'])){
 	if($_POST['socket']){
 		$User = R::findOne('users', 'vk_id = ?', array($_SESSION['logged_user']->vk_id));
 
-		$User->socket_id = (string)$_POST['socket'];
-		R::store($User);
+		if($User->socket_id == 'none'){
+			$User->socket_id = (string)$_POST['socket'];
+			R::store($User);	
+		}
+
 	}
 
 }else{

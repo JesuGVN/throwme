@@ -42,6 +42,8 @@
 						
 
 						<div class="work-zone col-md-9 col-sm-12">	
+
+
 													
 							<div class="lvl_list col-md-8 col-sm-12">
 								<div class="row justify-content-md-center justify-content-sm-center">
