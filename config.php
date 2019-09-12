@@ -9,9 +9,9 @@ R::setup( 'mysql:host=localhost;dbname=throwme','root', '' ); //for both mysql o
 
 
  $VK_APP_INFO = array(
- 	id => 7095575,
- 	secret_key => 'O7vTHYkzFcM9QpS5lMGq',
- 	service_key => '341eaf71341eaf71341eaf711b3472ea663341e341eaf71694c79db2e85489371fc2796',
+ 	id => 6740737,
+ 	secret_key => '2xI3yelkmLhout3UvvPP',
+ 	service_key => 'bc939f14bc939f14bc939f1493bcf54415bbc93bc939f14e74e26951f80a23d15a654fc',
  	redirect_url => 'http://192.168.0.200/vk.php'
  );
 

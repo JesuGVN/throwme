@@ -14,9 +14,10 @@ include('config.php');
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Ведется разработка | Остовайтесь с нами:3</title>
+	<title>ThrowMe - Скинься чтобы разбогатеть</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
+	<meta name="description" content="Мы финансовая пирамида которая помогает разбогатеть каждому желающему, если у тебя в кармане заволялись лишние 10 рублей и ты хочешь больше денег то не проходи мимо, ты не пожалеешь.">
 
 	<!-- Подключаем библиотеку bootstrap v4 -->
 	<link rel="stylesheet" type="text/css" href="./assets/bootstrap/css/bootstrap.css">

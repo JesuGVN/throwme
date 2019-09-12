@@ -142,7 +142,7 @@ io.on('connection', function(socket){
 
                                                                                 connection.query('UPDATE users SET ? WHERE vk_id = ?',[
                                                                                 {
-                                                                                    current_room: data.id
+                                                                                    current_room: data.ID
                                                                                 },
                                                                                     parseInt(userID)
                                                                                 ], function(err,res){
@@ -165,45 +165,53 @@ io.on('connection', function(socket){
                                     }
                                 }
                             });
+                        }else{
+                            connection.query('SELECT * FROM rooms WHERE USERS_COUNT < 3', function(err,res){
+                                if(err) throw err;
+                                else{
+                                    if(res.length > 0){
+                                        for(var i = 0; i <= res.length - 1; i++){
+                                            if(res[i].ROOM_LEVEL == user[0].current_lvl){
+                                                console.log(user[0].user_balance + ' | ' + res[i].SUM);
+                                                if(user[0].user_balance >= res[i].SUM){                                               
+                                                    var room = res[i];
+                                                    connection.query('UPDATE rooms SET ? WHERE ?',[{USERS_COUNT: res[i].USERS_COUNT + 1},{ID: res[i].ID}],function(err,res){
+                                                        if(err) throw err;
+                                                        else{
+                                                            connection.query('UPDATE users SET ? WHERE vk_id = ?',[{current_room: room.ID}, userID], function(err,res){
+                                                                if(err) throw err;
+                                                                else{
+                                                                    socket.emit('enterRoom',{room: room, user: user[0], socketID: socket.id}); // CALLBACK
+                                                                }
+                                                            });
+                                                        }
+                                                    });
+
+                                                }else{
+                                                    socket.emit('searchBalanceError',1);
+                                                }
+                                                break;
+                                            }
+                                        }
+                                    }else{
+
+                                        return false;
+                                    }
+                                }
+                            });
                         }
-
-                        // console.log(user);
-
-                        // console.log(user[0].current_lvl);
-                        connection.query('SELECT * FROM rooms WHERE USERS_COUNT < 3', function(err,res){
+                    }else if(user[0].gave == 1 && user[0].current_room > 0){
+                        connection.query('SELECT * FROM rooms WHERE ID = ?', parseInt(user[0].current_room), function(err,res){
                             if(err) throw err;
                             else{
                                 if(res.length > 0){
-                                    for(var i = 0; i <= res.length - 1; i++){
-                                        if(res[i].ROOM_LEVEL == user[0].current_lvl){
-                                            console.log(user[0].user_balance + ' | ' + res[i].SUM);
-                                            if(user[0].user_balance >= res[i].SUM){                                               
-                                                var room = res[i];
-                                                connection.query('UPDATE rooms SET ? WHERE ?',[{USERS_COUNT: res[i].USERS_COUNT + 1},{ID: res[i].ID}],function(err,res){
-                                                    if(err) throw err;
-                                                    else{
-                                                        connection.query('UPDATE users SET ? WHERE vk_id = ?',[{current_room: room.ID}, userID], function(err,res){
-                                                            if(err) throw err;
-                                                            else{
-                                                                socket.emit('enterRoom',{room: room, user: user[0], socketID: socket.id}); // CALLBACK
-                                                            }
-                                                        });
-                                                    }
-                                                });
-
-                                            }else{
-                                                socket.emit('searchBalanceError',1);
-                                            }
-                                            break;
-                                        }
-                                    }
-                                }else{
-
-                                    return false;
+                                    var room = res[0];
+                                    socket.emit('enterRoom',{room: room, user: user[0], socketID: socket.id}); // CALLBACK
                                 }
                             }
-                        });
-                    }else{
+                        });   
+                    }
+                    else{
                        socket.emit('searchError',1);
                     }
                 }
@@ -247,6 +255,9 @@ io.on('connection', function(socket){
                                                                             if(err) throw err;
                                                                             else{
                                                                                 if(ROOM.BALANCE == (ROOM.SUM * 3) || ROOM.BALANCE >= (ROOM.SUM * 3)  ){
+                                                                                    
+
+                                                                                    // Пификсить
                                                                                     for(var i = 0; i <= 10; i++){
                                                                                         console.log('ИГРА ЗАВЕРШЕННА!!!');
                                                                                     }
@@ -307,7 +318,10 @@ io.on('connection', function(socket){
 
 
     function getRoomInfo(id,owner){
+
         var result;
+
+        console.log(id);
 
         connection.query('SELECT * FROM rooms WHERE ID = ?', id, function(err,res){
             if(err) throw err;
@@ -395,16 +409,19 @@ io.on('connection', function(socket){
                                         connection.query('SELECT * FROM users WHERE current_room = ?', id, function(err,res){
                                             if(err) throw err;
                                             else{
+
                                                 if(res.length >= 0){
                                                     var _SOCKETS = [];
                                                     var _GAVES   = 0;
 
                                                     for(var i = 0; i <= res.length - 1; i++){
                                                         var USER = res[i];
+
+
                                                             _SOCKETS.push(USER.socket_id);
 
                                                         if(USER.gave == 1){
-                                                            UsersHTML = `
+                                                            UsersHTML = UsersHTML + `
                                                                 <div class="user col-md-3 col-sm-3 col-xs-3">
                                                                     <div class="user-avatar payed">
                                                                             <img src="`+ USER.photo_big +`" height="80" alt="user.png"></img>
@@ -415,7 +432,7 @@ io.on('connection', function(socket){
                                                             _GAVES++;
 
                                                         }else{
-                                                             UsersHTML = `
+                                                             UsersHTML = UsersHTML + `
                                                                 <div class="user col-md-3 col-sm-3 col-xs-3">
                                                                     <div class="user-avatar">
                                                                             <img src="`+ USER.photo_big +`" height="80" alt="user.png"></img>
@@ -489,7 +506,7 @@ io.on('connection', function(socket){
                                                             `+ RoomInfo +`
                                                           </div> `;
 
-
+                                                        console.log(html);
                                                         socket.emit('getRoomInfo',html);
                                                 }
                                             }

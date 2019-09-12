@@ -32,7 +32,7 @@ require_once('config.php');
 		  		$findUser->last_name  = (string)$data['last_name'];
 		  		$findUser->photo_big  = (string)$data['photo_big'];
 		  		$findUser->token      = (string)$token['access_token'];
-
+  
 		  		R::store($findUser);
 
 		  		$_SESSION['logged_user'] = $findUser;
@@ -42,13 +42,9 @@ require_once('config.php');
 
 			  	$user = R::dispense('users');
 
-			  	$userObj = array(
-			  		vk_id 	   => (int)$data['id'],
-			  		first_name => (string)$data['first_name'],
-			  		last_name  => (string)$data['last_name'],
-			  		sex 	   => (int)$data['sex'],
-			  		photo_big  => (string)$data['photo_big']
-			  	);
+			  	$userObj = new \stdClass();;
+
+
 
 			  	$user->vk_id 	   	= 	(int)$data['id'];
 			  	$user->first_name  	= 	(string)$data['first_name'];
@@ -63,16 +59,22 @@ require_once('config.php');
 			  	R::store($user);
 
 
-			  	$_SESSION['logged_user'] = (array)$userObj;
-			  	header('Location: '.'/');
+			  	
+
+				  	$userObj->vk_id 	   	= 	(int)$data['id'];
+				  	$userObj->first_name  	= 	(string)$data['first_name'];
+				  	$userObj->last_name   	= 	(string)$data['last_name'];
+				  	$userObj->sex 		   	= 	(int)$data['sex'];
+				  	$userObj->photo_big   	= 	(string)$data['photo_big'];
+				  	$userObj->token       	= 	(string)$token['access_token'];
 
 
+				  	$_SESSION['logged_user'] = $userObj;
+				  	header('Location: '.'/');
+
+				  	// var_dump($userObj);
+			  	
 		  	}
-
-
-
-
-
 		  }
 	  }
   }

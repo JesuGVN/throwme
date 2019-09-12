@@ -4,7 +4,10 @@
 		$LEVELS     = R::getAll('SELECT * FROM levels');
 		$LEVEL_INFO = R::findOne('levels', 'LEVEL = ?', array($USER_INFO->current_lvl));
 
+		// var_dump($LEVEL_INFO);
 		$LEVEL_INFO = $LEVEL_INFO->export();
+
+
 	 ?>				
 		
 					<!-- Контентная часть -->

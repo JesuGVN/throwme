@@ -1,5 +1,7 @@
 <?php require_once('./includes/header.php'); // Шапка
 
+
+// var_dump($_SESSION['logged_user']->vk_id);
 if(isset($_SESSION['logged_user'])){
 	require_once('./includes/game.php'); // Рабочая Зона
 	require_once('./includes/last-game-bar.php'); // Последние действия

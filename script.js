@@ -4,7 +4,7 @@ $(document).ready(function(e){
 	/// SOCKET.IO
 
 	var socket = "";
-    socket = io(); // подключение к сокету 2
+    socket = io.connect("37.230.115.44:9999"); // подключение к сокету
 
 	socket.on('connect', function(e){
 
@@ -191,10 +191,14 @@ $(document).ready(function(e){
 		socket.emit('updateRoomInfo',{id: data.room.ID, own: true});
 		socket.on('getRoomInfo', function(data){
 			if(data){
-
-				console.log(data);
 				WorkZone.innerHTML = data;
 				WorkZone.style.padding = '0 0 0 15px';
+
+				var ThrowButton  = document.querySelector('#throw');
+
+				ThrowButton.addEventListener('click', function(e){
+					alert('Вы не можите скинуть деньги так как вы создатель!');
+				});
 
 			}
 		});
