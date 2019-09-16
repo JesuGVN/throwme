@@ -4,7 +4,7 @@ $(document).ready(function(e){
 	/// SOCKET.IO
 
 	var socket = "";
-    socket = io(); // подключение к сокету 2
+       	socket = io.connect('http://192.168.0.200:8080'); // подключение к сокету 
 
 	socket.on('connect', function(e){
 
@@ -13,6 +13,8 @@ $(document).ready(function(e){
 		  url: 'index.php',
 		  data: 'socket='+ socket.id,
 		  success: function(data){
+
+		  	 // Удалить после выхода на прод.
 	  		 console.log('Вы успешно подключились к SOCKET серверу, ваш ID: ' + socket.id);
 		  }
 		});
@@ -177,6 +179,7 @@ $(document).ready(function(e){
 
 	socket.on('enterRoom', function(data){
 		if(data){
+			console.log(data);
 			EnterRoom(data);
 			clearInterval(window.loop);
 		}
@@ -191,10 +194,9 @@ $(document).ready(function(e){
 		socket.emit('updateRoomInfo',{id: data.room.ID, own: true});
 		socket.on('getRoomInfo', function(data){
 			if(data){
-
-				console.log(data);
 				WorkZone.innerHTML = data;
 				WorkZone.style.padding = '0 0 0 15px';
+
 
 			}
 		});

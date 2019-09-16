@@ -11,10 +11,14 @@ var mysql       = require('mysql');
 var config      = require('../config.json');
 var connection;
 
+require('events').defaultMaxListeners = 100;
+
 
 _Init();
 
 io.on('connection', function(socket){
+
+    this.setMaxListeners(150);
     console.log('User Connected, id: ' + socket.id);
 
     var roomTimer;
@@ -112,6 +116,7 @@ io.on('connection', function(socket){
                                         var LEVEL = res[0];
 
 
+                                        console.log(true);
                                         connection.query('SELECT * FROM rooms WHERE OWNER_ID = ?', userID, function(err,res){
                                             if(err) throw err;
                                             else{
@@ -140,15 +145,18 @@ io.on('connection', function(socket){
                                                                             var data = res[0];
                                                                             if(data.STATUS == 0){
 
+
+                                                                                socket.emit('enterHasOwner',{room: data});
+
                                                                                 connection.query('UPDATE users SET ? WHERE vk_id = ?',[
                                                                                 {
-                                                                                    current_room: data.ID
+                                                                                    own_room: data.ID
                                                                                 },
                                                                                     parseInt(userID)
                                                                                 ], function(err,res){
                                                                                     if(err) throw err;
                                                                                     else{
-                                                                                         socket.emit('enterHasOwner',{room: data});
+                                                                                         // socket.emit('enterHasOwner',{room: data});
                                                                                     }
                                                                                 });
                                                                             }
@@ -240,7 +248,7 @@ io.on('connection', function(socket){
                                             var ROOM = res[0];
 
                                             if(ROOM.STATUS == 0){
-                                                if(ROOM.SUM != (ROOM.SUM * 3)){
+                                                if(ROOM.BALANCE != (ROOM.SUM * 3)){
 
                                                     console.log(ROOM.SUM + ' - ' + USER.user_balance);
                                                     if( parseInt(USER.user_balance) >= parseInt(ROOM.SUM) ){
@@ -254,7 +262,7 @@ io.on('connection', function(socket){
                                                                         connection.query('SELECT * FROM rooms WHERE ID = ?', parseInt(ROOM.ID), function(err,res){
                                                                             if(err) throw err;
                                                                             else{
-                                                                                if(ROOM.BALANCE == (ROOM.SUM * 3) || ROOM.BALANCE >= (ROOM.SUM * 3)  ){
+                                                                                if(res[0].BALANCE == (res[0].SUM * 3) || res[0].BALANCE >= (res[0].SUM * 3)  ){
                                                                                     
 
                                                                                     // Пификсить
@@ -264,27 +272,7 @@ io.on('connection', function(socket){
 
 
 
-                                                                                    connection.query('DELETE FROM rooms  WHERE ?', ROOM.ID, function(err,res){
-                                                                                        if(err) throw err;
-                                                                                        else{
-                                                                                            connection.query('SELECT * FROM users WHERE current_room = ?', parseInt(ROOM.ID), function(err,res){
-                                                                                                if(err) throw err;
-                                                                                                else{
-                                                                                                    if(res.length > 0){
-                                                                                                        for(var i = 0; i <= res.length - 1; i++){
-
-                                                                                                            io.to(res[i].socket_id).emit('gameOver', 1);
-                                                                                                            connection.query('UPDATE users SET ? WHERE vk_id = ?', [{gave: 0, current_room: 0, current_lvl: res[i].current_lvl + 1}, res[i].vk_id], function(err,res){
-                                                                                                                if(err) throw err;
-                                                                                                                else{
-                                                                                                                }
-                                                                                                            });
-                                                                                                        }
-                                                                                                    }
-                                                                                                }
-                                                                                            });
-                                                                                        }
-                                                                                    });
+                                                                                    gameOver(res[0].ID); // Завершаем сессию комнаты
                                                                                 }
                                                                             }
                                                                         });
@@ -411,14 +399,18 @@ io.on('connection', function(socket){
                                             else{
 
                                                 if(res.length >= 0){
+
+
+
+
                                                     var _SOCKETS = [];
                                                     var _GAVES   = 0;
 
                                                     for(var i = 0; i <= res.length - 1; i++){
                                                         var USER = res[i];
 
-
-                                                            _SOCKETS.push(USER.socket_id);
+                                                                  
+                                                        _SOCKETS.push(USER.socket_id);
 
                                                         if(USER.gave == 1){
                                                             UsersHTML = UsersHTML + `
@@ -440,6 +432,8 @@ io.on('connection', function(socket){
                                                                     <h6 class="user-name ">`+ USER.first_name +`</h6>
                                                                 </div>`;                                           
                                                         }
+                                                    
+
 
                                                     }
                                                     if(room.USERS_COUNT == 1){
@@ -506,8 +500,9 @@ io.on('connection', function(socket){
                                                             `+ RoomInfo +`
                                                           </div> `;
 
-                                                        console.log(html);
+                                                        // console.log(html);
                                                         socket.emit('getRoomInfo',html);
+
                                                 }
                                             }
 
@@ -521,15 +516,94 @@ io.on('connection', function(socket){
                 }
             }
         });
-        
-        // return true;
-
     }
 
-function roomResult(data){
-    return data;
-}
+
+    function gameOver(roomID){
+        connection.query('SELECT * FROM rooms WHERE ID = ?', parseInt(roomID), function(err,roomRes){
+            if(err) throw err;
+            else{
+                if(roomRes.length > 0){
+                    var ROOM = roomRes[0];
+
+                    if(ROOM.STATUS == 0 && ROOM.USERS_COUNT == 3 && ROOM.BALANCE >= (ROOM.SUM * 3)){
+                        connection.query('DELETE FROM rooms WHERE ID = ?',ROOM.ID, function(err,result){
+                            if(err) throw err;
+                            else{
+
+
+                                connection.query('INSERT INTO gameHistory SET ?',{
+                                    GAME_ID: ROOM.ID,
+                                    OWNER_ID: ROOM.OWNER_ID,
+                                    BALANCE: ROOM.BALANCE,
+                                    LEVEL: ROOM.ROOM_LEVEL
+                                }, function(err,done){
+                                    if(err) throw err;
+                                    else{
+                                        if(done){
+                                            connection.query('SELECT * FROM users WHERE vk_id = ?', ROOM.OWNER_ID, function(err,owner){
+                                                if(err) throw err;
+                                                else{
+                                                    var OWNER = owner[0]; // создатель комнаты
+
+                                                    var obj = {
+                                                        own_room: 0,
+                                                        user_balance: OWNER.user_balance + (ROOM.SUM * 3),
+                                                        current_lvl: OWNER.current_lvl + 1
+                                                    }
+
+                                                    if(OWNER){
+                                                        connection.query('UPDATE users SET ? WHERE vk_id = ?',[obj, OWNER.vk_id],function(err){
+                                                            if(err) throw err;
+                                                            else{
+                                                                // console.log(obj);
+                                                                io.to(OWNER.socket_id).emit('gameOver', 1); // Завершаем сессию Создателя комнаты
+
+                                                                connection.query('SELECT * FROM users WHERE current_room = ?', ROOM.ID, function(err,users){
+                                                                    if(err) throw err;
+                                                                    else{
+                                                                        var _SOCKETS = [];
+                                                                        for(var i = 0; i <= users.length - 1; i++){
+
+                                                                            var USER = users[i];
+
+                                                                            if( users[i].socket_id != 0){
+                                                                                io.to(users[i].socket_id).emit('gameOver', 1);
+                                                                            }
+
+                                                                        
+                                                                            if(USER){
+                                                                                connection.query('UPDATE users SET ? WHERE vk_id = ?',[{current_room: 0,current_lvl: USER.current_lvl + 1,gave: 0}, USER.vk_id], function(err,res){
+                                                                                        if(err) throw err;
+                                                                                });
+                                                                                connection.query('INSERT INTO userGameHistory SET ?',{ USER_ID: USER.id, USER_VK: USER.vk_id, GAME_ID: ROOM.ID }, function(err,res){
+                                                                                    if(err) throw err;
+                                                                                });
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                });
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                            });
+
+                                        }
+                                    }
+                                });
+
+
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
 });
+
+
 
 
 function handleConnection(){
