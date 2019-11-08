@@ -1,9 +1,4 @@
-<? 
-include('config.php');
-?>
-
-
-
+<?php include('config.php'); ?>
 <!-- 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 -   Дата начала разработки: 29.07.19 | 13-55        -
@@ -27,16 +22,12 @@ include('config.php');
 	<!-- Подключаем jQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
-	<script src="./libs/JQuery-Session-Plugin/jquery.session.js"></script>
 
-<!-- 	<link rel="stylesheet" href="./assets/font-awesome/css/fontawesome.css">
-	<script src="./assets/font-awesome/js/fontawesome.js"></script> -->
 
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
 	<!-- Основной JS сценарий -->
 	<script src="./js/script.js"></script>
-	<script src="./js/game.js"></script>
 
 </head>
 <body>
@@ -49,15 +40,15 @@ include('config.php');
 				<div class="navigation-bar col-md-12 col-sm-12 col-12 col-xs-12">
 					<!-- Навигация -->
 					<div class="logo-block col-md-3 col-sm-12 col-xs-12">
-						<a href="#">
+						<a href="/">
 							<img src="./logo.png" alt="site-logo" height="50">
 						</a>
 					</div>
 					<div class="nav">
 						<ul>
-							<li><a href="#" class="active" >Главная</a></li>
-							<li><a href="#">Тарифы</a></li>
-							<li><a href="#">История Выплат</a></li>
+							<li><a href="/">Главная</a></li>
+							<li><a href="#">Мы Вконтакте</a></li>
+							<li><a href="/withdraws.php">История Выплат</a></li>
 							<li><a href="#">Новости</a></li>
 							<li><a href="#">FAQ</a></li>
 						</ul>

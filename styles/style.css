@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Code|Open+Sans|Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Aldrich|Press+Start+2P|VT323&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap');
 /*
 
 font-family: 'Fira Code', monospace;
@@ -70,7 +71,7 @@ body::-webkit-scrollbar-track {
 
 	.page-wrapper .navigation-bar{
 		position: fixed;
-		background: #131524;
+		background: #111322;
 		padding: 5px;
 
 		z-index: 200;
@@ -146,7 +147,7 @@ body::-webkit-scrollbar-track {
 		  .page-wrapper .nav-bar-left .user-info{
 		  	/*display: block;*/
 		  	background: #131524;
-			padding: 25px;
+			padding: 28px;
 		  	margin: 0 auto 10px;
 
 		  	font-family: cursive;
@@ -163,6 +164,10 @@ body::-webkit-scrollbar-track {
 
 				cursor: pointer;
 				float: left;
+			}
+			.page-wrapper .nav-bar-left .avatar-zone:hover { /*Граница круг аватарки*/
+				border:1px solid #FF5D2B;
+				transition: 0.3s;
 			}
 				.page-wrapper .nav-bar-left .avatar-zone #user_avatar{
 					float: left;
@@ -186,7 +191,7 @@ body::-webkit-scrollbar-track {
 					color: #fefefe;
 					background: #DC0232;
 
-					margin: 10px 18px 0px 0px;
+					margin: 5px 18px 0px 0px;
 
 					outline: none;
 
@@ -196,15 +201,18 @@ body::-webkit-scrollbar-track {
 						background: #F24B18;
 					}
 				.page-wrapper .nav-bar-left .info-zone #user_name{
-					color: #595B69;
 					font-family:  cursive;
 					font-size: 18px;
+					color: #C4C5C8;
 				}
-					.page-wrapper .nav-bar-left .info-zone #user_name b{
-						font-size: 18px;
+					.page-wrapper .nav-bar-left .info-zone i{
+						color: #595B69;
+						
 					}
 				.page-wrapper .nav-bar-left .info-zone #user_balance{
 					color: #C4C5C8;
+
+					cursor: pointer;
 				}
 		
 		   .page-wrapper .nav-bar-left .nav-bar-menu{
@@ -522,7 +530,6 @@ body::-webkit-scrollbar-track {
 		max-height: 410px;
 }
 	.page-wrapper .lvl_list .block{
-		background: #131524;
 		color: #fefefe;
 
 		height: 410px;
@@ -536,8 +543,9 @@ body::-webkit-scrollbar-track {
 			padding: 5px;
 		}
 		.page-wrapper .lvl_list .block .list{
-			max-height: 350px;
-			height: 365px;
+			background: #131524;
+			max-height: 410px;
+			height: 407px;
 
 			overflow-y: scroll;
 		}
@@ -569,7 +577,7 @@ body::-webkit-scrollbar-track {
 				}
 					.page-wrapper .lvl_list .block .list ul li .element img{
 						display: block;
-
+						pointer-events: none; /*Запрет на копирования фотографий Lvl*/
 						width: 70px;
 						margin: 0 auto;
 
@@ -602,39 +610,56 @@ body::-webkit-scrollbar-track {
 		float: left; 
 }
 	.page-wrapper .lvl_info .block{
-		background: #131524;
 		color: #fefefe;
-
 		height: 410px;
 		max-height: 410px;
 		
 	}
 		.page-wrapper .lvl_info .block h1{
+
 			color: #FF5D2B;
-			font-family: 'VT323', monospace;
-			font-size: 40px;
+			font-family: 'Roboto Condensed', sans-serif;
+			font-size: 38px;
+
+			text-align: center;
+			text-transform: uppercase;
+
+			font-style: bold;
 		}
 		.page-wrapper .lvl_info .block .info{
-			margin: 20px;
+			width: 100%;
+			background: #131524;
+			padding: 20px;
 		}
 		  	.page-wrapper .lvl_info .block .info ul{
 			  		margin: 0;
 			  		padding: 0;
-
 			  		list-style: none;
 			  	}
 			  		.page-wrapper .lvl_info .block .info ul li{
-			  			margin: 20px auto;
-			  			/*font-family: cursive;*/
-			  			font-size: 20px;
+			  			margin: 17px auto;
+			  			font-family: 'Roboto Condensed', sans-serif;
+			  			font-size: 18px;
+
+			  			text-transform: uppercase;
 			  			color: #8C8E9A;
 			  		}
 			  			.page-wrapper .lvl_info .block .info ul li small{
 			  				color: #fefefe;
+			  			} 
+			  			#get_sum ,#level_action,#throw_sum , #level_type ,#room_level { 
+			  				font-size: 18px;
 			  			}
+			  			.fa-ruble-sign {  /*Размер иконок РУБЛИ*/ 
+			  				font-size: 15px;
+			  			}
+
+
+
 		.page-wrapper .lvl_info .block button{
-			position: absolute;
-			width: 90%;
+			/*position: absolute;*/
+			width: 100%;
+
 			background: #37C441;
 
 			border: none;
@@ -654,7 +679,7 @@ body::-webkit-scrollbar-track {
 
 
 .page-wrapper .loading_block{
-	display: none;
+
 
 	margin-bottom: 15px;
 	min-height: 410px;
@@ -667,16 +692,385 @@ body::-webkit-scrollbar-track {
 	float: left;
 }
 	.page-wrapper .loading_block h1{
-		margin-top: 155px;
+		margin-top: 35px;
+	}
+		.page-wrapper .loading_block img{
+			margin: 155px 10px 0 0;
+		}
+		.page-wrapper .loading_block p{
+			padding-top: 10px;
+		}
+
+
+
+
+
+
+.refBlock{
+	/*padding: 10px;*/
+	/*margin-bottom: 10px;*/
+
+}
+	.refBlock .block_container{
+
+		background: #131524;
+		color: #7B7D89;
+
+		padding: 20px;
+		margin-bottom: 10px;
+	}
+		.refBlock .block_container .linkBlock{
+			padding: 10px;
+
+			border: 1px solid #ED4A18;
+			border-radius: 4px;
+
+
+		}
+			.refBlock .block_container .linkBlock b{
+				margin: 0 4px 0 4px;
+				color: #A7A9B5;
+			}
+				.refBlock .block_container .linkBlock #copy_ref{
+					user-select: text;
+					transition: all 0.5s;
+				}
+				.refBlock .block_container .linkBlock .copyTrue{
+
+				    transition-duration: 0.5;
+				    transition-timing-function: linear;
+
+
+					text-align: center;
+					color: #00FF00;
+					text-transform: uppercase;
+				}
+
+			.refBlock .block_container .linkBlock button{
+				margin: 0px;
+
+				height: 35px;
+				width: 40px;
+
+				background: #3B3D4B;
+				color: #C4C5C8;
+				border: none;
+				border-radius: 4px;
+
+				outline: none;
+				float: right;
+
+				transform: translateY(-5px);
+				transition: all 0.3s;
+			}
+				.refBlock .block_container .linkBlock button:hover{
+					background: #ED4A18;
+				}
+
+			.refBlock .block_container table{
+				table-layout: fixed;
+				width: 100%;
+			}
+				.refBlock .block_container table tr{
+					text-align: center;
+				}
+				.refBlock .block_container table th{
+					padding: 0 0 15px 0;
+
+					color: #ED4A18;
+					font-style: bold;
+
+					border-bottom: 1px solid #ED4A18;
+				}
+			.refBlock .block_container .count_pagination{
+				margin-top: 25px;
+				height: 40px;
+			}
+				.refBlock .block_container .count_pagination label{
+					display: block;
+					margin: 5px;
+					float: left;
+				}
+				.refBlock .block_container .count_pagination .paginator{
+					float: right;
+				}
+					.refBlock .block_container .count_pagination .paginator small{
+						color: #0A7BDC;
+						display: inline-block;
+					}
+					.refBlock .block_container .count_pagination .paginator ul{
+						display: inline-block;
+						margin: 0;
+						padding-right: 30px;
+					}
+						.refBlock .block_container .count_pagination .paginator ul li{
+							display: inline-block;
+							margin: 5px;
+						}
+							.refBlock .block_container .count_pagination .paginator ul li div{
+								width: 40px;
+								height: 40px;
+
+								background: rgb(237,74,24);
+                                /*background: linear-gradient(90deg, rgba(237,74,24,1) 35%, rgba(135,37,6,1) 82%);*/
+
+                                color: #fefefe;
+                                text-align: center;
+                                font-size: 22px;
+
+                                border-radius: 5px;
+
+							}
+
+
+
+/*  MODAL WINDOW ZONE */
+
+.modal-window{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+
+	background: rgba(1,1,1,0.7);
+	user-select: none;
+
+	z-index: 999999;
+
+	transition: all 0.3s;
+}
+
+	.modal-window .contain{
+		width: 90%;
+		margin: 0 auto;
+
+		padding-top: 60px;
+	}
+		.modal-window .contain .window{
+			width: 100%;
+
+			margin: 0 auto;
+			padding: 25px;
+
+			background: #131524;
+			box-shadow: 0 0 10px rgba(0,0,0,0.5); 
+			border-radius: 10px;
+			height: auto;
+		}
+			.modal-window .contain .window .window-header{
+				width: 100%;
+			}
+				.modal-window .contain .window .window-header #window-close{
+					border: none;
+					border-radius: 100%;
+
+					background: #131524;
+					color: #FF5D2B;
+					box-shadow: 0 0 10px rgba(0,0,0,0.5); 
+
+					height: 50px;
+					width: 50px;
+
+					transform: translate(35px,-35px);
+					font-size: 20px;
+
+					transition: all 0.3s;
+					float:  right;
+					outline: none;
+				}
+					.modal-window .contain .window .window-header #window-close:hover{
+						color: #00FF00;
+					}
+			.modal-window .contain .window .windows-modal{
+				width: 80%;
+				margin: 0 auto;
+			}
+
+	.window-money-output{
+		/*/ code here */
+		padding-top: 20px;
+		color: #8A9DA9;
+
+
+	}
+		.window-money-output select{
+			width: 50%;
+			padding: 5px;
+
+			border: none;
+			border-radius: 4px;
+
+			outline: none;
+		}
+		.window-money-output input{
+			width: 100%;
+			padding: 5px;
+
+			border: none;
+			border-radius: 4px;
+
+			outline: none;
+		}
+		.window-money-output .comission{
+
+			width: 100px;
+			background: #8A9DA9;
+			padding: 2px;
+			margin-top: 10px;
+			border-radius: 3px;
+
+			color: #172A36;
+			text-align: center;
+			font-style: bold;
+
+			cursor: pointer;
+		}
+		.window-money-output button{
+			display: block;
+			background: #FF5D2B;
+
+			border: none;
+			border-radius: 4px;
+			width: 120px;
+			padding: 10px;
+			margin: 0 auto;
+
+			color: #fefefe;
+			/*float: right;*/
+
+			outline: none;
+
+			transition: all 0.3s;
+		}
+			.window-money-output button:hover{
+				background: #D93705;
+			}
+		.window-money-output .submitOutMoney{
+			height: 85px;
+			margin-top: 30px;
+		}
+		.window-money-output .moreOutput{
+			width: 100%;
+			text-align: center;
+		}
+			.window-money-output .moreOutput a{
+				text-decoration: none;
+			}
+	.window-money-output-history{
+		max-height: 400px;
+		overflow-y: scroll;
 	}
 
+	  .window-money-output-history::-webkit-scrollbar{
+		width: 2px;
+	    height: 1px;
+	    background: rgba(0, 0, 0, 0.1);
+	  }
+	  .window-money-output-history::-webkit-scrollbar-thumb{
+	    background-color: #ED3E20;
+	  }
+	  .window-money-output-history::-webkit-scrollbar-track{
+	    border-width: 0;
+	  }
+		.window-money-output-history table{
+			table-layout: fixed;
+			width: 100%;
+
+			font-size: 15px;
+		}
+			.window-money-output-history table th{
+				color: #FF5D2B;
+				text-align: center;
+			}
+				.window-money-output-history table td{
+					color: #888A98;
+					text-align: center;
+				}
+					.window-money-output-history table td #done{
+						background: #12CC12;
+
+						width: 100px;
+						height: 25px;
+
+						margin: 5px auto;
+
+						border-radius: 4px;
+						color: #fefefe;
+						/*padding: 3px;*/
+					}
+					.window-money-output-history table td #wait{
+
+						display: inline-block;
+						background: #FF9100;
+
+						width: 100px;
+						height: 25px;
+
+						margin: 5px auto;
+
+						border-radius: 4px;
+						color: #fefefe;
+						/*padding: 3px;*/
+					}
+					.window-money-output-history table td .cancel{
+						position: absolute;
+						/*display: inline-block;*/
+						color: #DC022B;
+
+						transform: translate(10px,5px);
+						font-size: 18px;
+						cursor: pointer;
+					}
 
 
+	/* ======= < СПИСОК ПОСЛЕДНИХ ВЫПЛАТ >======= НАЧАЛО */
+	.widthdraws {
+	    width: 100%;
+	    margin: 0 auto;
+	    user-select: none;
+
+	/* ФОН ТАБЛИЦА */
+	} .widthdraws .bg-widthdraws {
+	    background-color: #131524;
+	    border-radius: 3px;
+	    width: 70%;
+	    margin: 0 auto;
+	    height: auto;
+	    box-sizing: border-box;
+	    overflow-x: auto;
+	    /* ТАБЛИЦА */
+	} .widthdraws .bg-widthdraws table {
+		min-width: 888px;
+		text-align: center;
+	    font-size: 18px;
+	    width: 100%;
+	} .widthdraws .bg-widthdraws th {
+	    padding-bottom: 10px;
+	    color: #FF5D2B;
+	} .widthdraws .bg-widthdraws td {
+	    padding-bottom: 10px;
+	    text-align: center;
+	    color: #888A98;
+	} .widthdraws .bg-widthdraws .caption-side {
+	    color: #6c757d;
+	    text-align: left;
+	    padding: 10px 0px 10px 20px; 
+	    caption-side: top;
+	/* ====== < SCROLLBAR - ПОСЛЕДНИХ ВЫПЛАТ > ====== НАЧАЛО */
+	} .widthdraws .bg-widthdraws::-webkit-scrollbar {
+	    width: 2px;
+	    height: 1px;
+	    background: rgba(0, 0, 0, 0.1);
+	} .widthdraws .bg-widthdraws::-webkit-scrollbar-thumb {
+		background-color: #ED3E20;
+	} .widthdraws .bg-widthdraws:-webkit-scrollbar-track {
+		border-width: 0;
+	} .widthdraws .bg-widthdraws img {
+		pointer-events: none;
+	}
+    /* ====== </ SCROLLBAR - ПОСЛЕДНИХ ВЫПЛАТ > ====== КОНЕЦ */
 
 
-
-
-
+	/* ======= </ СПИСОК ПОСЛЕДНИХ ВЫПЛАТ />======= КОНЕЦ */
 
 
 
@@ -696,6 +1090,12 @@ body::-webkit-scrollbar-track {
 
 @media (min-width: 0px) and (max-width: 770px){
 
+	.window-money-output-history{
+		overflow-x: scroll;
+	}
+	.window-money-output-history table{
+		width: 160%;
+	}
 	.page-wrapper .lvl_list .block .list ul{
 		padding: 0;
 	}
@@ -779,6 +1179,23 @@ body::-webkit-scrollbar-track {
 							font-family: 'Aldrich', sans-serif;
 						}
 
+		.refBlock .block_container table{
+			overflow: scroll;
+		}
+		.refBlock .block_container label{
+			display: block;
+			text-align: center;
+
+			margin: 10px;
+		}
+		.refBlock .block_container .count_pagination{
+			height: 140px;
+		}
+			.refBlock .block_container .count_pagination .paginator{
+				width: 80%;
+				margin: 0 auto;
+			}
+
 
 /* **************** NOT AUTH PAGE  *****************/
 
@@ -796,6 +1213,8 @@ body::-webkit-scrollbar-track {
 
 /****************************************************/
 }
+
+
 
 
 
@@ -818,6 +1237,15 @@ body::-webkit-scrollbar-track {
 	.page-wrapper .nav-bar-left .info-zone #user-balance{
 		font-size: 28px;
 	}
+}
+@media (min-width: 340px) and (max-width: 450px){
+	.window-money-output-history{
+		overflow-x: scroll;
+	}
+	.window-money-output-history table{
+		width: 230%;
+	}
+
 }
 
 @media (min-width: 340px) and (max-width: 365px){
@@ -842,6 +1270,7 @@ body::-webkit-scrollbar-track {
 		padding: 3px;
 	}
 }
+
 
 @media (min-width: 500px) and (max-width: 766px){
 	.page-wrapper .nav-bar-left .user-info{
@@ -879,6 +1308,7 @@ body::-webkit-scrollbar-track {
 		width: 100px;
 		margin: 0 auto;
 	}
+
 }
 
 

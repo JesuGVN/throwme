@@ -1,11 +1,15 @@
 {
 	"server":{
-		"port": 8080
+		"port": 3000
 	},
 	"database":{
 		"host": "localhost",
 		"user": "root",
 		"password": "",
-		"database": "throwme"
+		"database": "throwme_beta"
+	},
+	"admins":{
+		"admin_1": 239823355,
+		"admin_2": 336765139
 	}
 }

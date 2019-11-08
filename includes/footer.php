@@ -1,5 +1,6 @@
 				<div class="footer col-md-12">
 					<!-- Подвал Сайта -->
+<!-- 					<audio src="1.mp3" autoplay="autoplay"></audio> -->
 					<small>&copy THROWME 2019</small>
 					<a href="#">Пользовательское соглашение</a>
 				</div>

@@ -4,6 +4,7 @@
 
 require_once('config.php');
 
+
   if(!$_GET['code']){
   	// Если кода не существует
   	exit('error code ...');
@@ -45,16 +46,22 @@ require_once('config.php');
 			  	$userObj = new \stdClass();;
 
 
-
-			  	$user->vk_id 	   	= 	(int)$data['id'];
+		  		$user->vk_id 	   	= 	(int)$data['id'];
 			  	$user->first_name  	= 	(string)$data['first_name'];
 			  	$user->last_name   	= 	(string)$data['last_name'];
 			  	$user->sex 		   	= 	(int)$data['sex'];
 			  	$user->photo_big   	= 	(string)$data['photo_big'];
 			  	$user->token       	= 	(string)$token['access_token'];
 
-			  	$user->user_balance =  	(float)0;
+			  	$user->user_balance =  	(float)10;
 			  	$user->user_role 	= 	(string)'user';
+			  	$user->reg_date     =  	(string)date('j/m/Y');
+
+			  	if($_SESSION['referal']){
+			  		$user->user_ref =   (int)$_SESSION['referal'];
+			  	}else{
+			  		$user->user_ref =    0; // 0 = ID Администратора =)
+			  	}
 
 			  	R::store($user);
 
@@ -69,8 +76,20 @@ require_once('config.php');
 				  	$userObj->token       	= 	(string)$token['access_token'];
 
 
+
+				  	if($_SESSION['referal']){
+			  			$userObj->ref    	=   (int)$_SESSION['referal'];
+
+			  			$_SESSION['referal'] = 0;
+				  	}else{
+				  		$userObj->ref       =   0;
+				  	}
+
+
 				  	$_SESSION['logged_user'] = $userObj;
+
 				  	header('Location: '.'/');
+
 
 				  	// var_dump($userObj);
 			  	
