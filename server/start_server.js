@@ -1,6 +1,32 @@
 // NODE
 
 
+
+/* 
+    TTTTTTTTTT TT   TT  TTTTTT      TTTT     TT      TT      TT
+        TT     TT   TT  TT   TT   TT    TT    TT    TTTT    TT
+        TT     TTTTTTT  TTTTT    TT      TT    TT  TT TT  TT
+        TT     TT   TT  TT  TT    TT    TT      TTTT   TTTT
+        TT     TT   TT  TT   TT     TTTT         TT     TT
+
+        				TTTT    TTTT  TTTTTT
+        				TT TT  TT TT  TT
+        				TT  TTTT  TT  TTTTTT
+        				TT   TT   TT  TT
+        				TT        TT  TTTTTT
+
+
+        			  T H R O W M E - 2 0 1 9
+
+		  DEV:           EDUARD SHUMKOV
+		  PRODUCT TYPE:  WEB-SITE
+		  PRODUCT NAME:  THROWME
+		  DOMAIN:        THROWME.RU
+		  IP ADRESS:     37.230.115.44
+
+
+*/	
+
 const express = require('express');
 const app     = express();
 const server  = require('http').Server(app);
@@ -10,6 +36,7 @@ const io      = require('socket.io')(server);
 
 const mysql       = require('mysql');
 var config        = require('../config.json');
+var md5           = require('md5');
 var connection;
 
 const TelegramBot = require('node-telegram-bot-api');
@@ -35,7 +62,7 @@ _Init();
 
 io.on('connection', function(socket){
 
-	currentUsersCount++;
+    currentUsersCount++;
     // socket.broadcast.emit('lastGameAction', '1');
     this.setMaxListeners(150);
     console.log('User Connected, id: ' + socket.id);
@@ -46,7 +73,7 @@ io.on('connection', function(socket){
 
     socket.on('disconnect', function (e) {
 
-    	currentUsersCount--;
+        currentUsersCount--;
         clearInterval(roomTimer);
         connection.query('SELECT * FROM users WHERE socket_id = ?', socket.id, function(err,user){
             if(err) throw err;
@@ -86,7 +113,58 @@ io.on('connection', function(socket){
             }
         });
     });
+    socket.on('replSubmit', function(data){
+        var obj = {
+            PaySystem: parseInt(data.paySys),
+            SUM: parseFloat(data.sum),
+            REQ: data.req 
+        }
 
+        if(obj){
+            connection.query('SELECT * FROM users WHERE socket_id = ?', socket.id, function(err,res){
+                if(err) throw err;
+                else{
+                    if(res.length > 0){
+                    	connection.query('SELECT * FROM repls', function(err,count){
+                			
+                    		if(err) throw err;
+                    		else{
+                    			var count  = count.length;
+                    		    var SIGN_1 = md5(config.freekassa.m_id + ':' + obj.SUM + ':' + config.freekassa.s_word + ':' + count);
+		                        var SIGN_2 = md5(config.freekassa.m_id + ':' + obj.SUM + ':' + config.freekassa.s_word_2 + ':' + count);
+
+		                        console.log(config.freekassa.m_id + ':' + obj.SUM + ':' + config.freekassa.s_word + ':' + count);
+		                        console.log(SIGN_1);
+
+		                        var data_obj = {
+		                            VK_ID: res[0].vk_id,
+		                            HASH_ID: count,
+		                            SUM: obj.SUM,
+		                            REQ: obj.REQ,
+		                            PAY_SYS: obj.PaySystem,
+		                            SIGN: SIGN_1,
+		                            SIGN_2: SIGN_2,
+		                            DATE: currentDate
+		                        }
+
+		                        var url = 'http://www.free-kassa.ru/merchant/cash.php?m=' + config.freekassa.m_id + "&oa=" + obj.SUM + '&o=' + count + "&s=" + SIGN_1 + "&i=" + obj.PaySystem + "&phone=" + obj.REQ;    
+		                        if(data_obj){
+
+		                            connection.query('INSERT INTO repls SET ?',data_obj, function(err,fields){
+		                                if(err) throw err;
+		                                else{	
+                                   			 socket.emit('redirect', url);
+		                                }
+		                            });
+		                        }   
+                    		}
+                    	});
+                    }
+                }
+            });
+        }
+
+    });
     socket.on('outPutBalance', function(e){
         connection.query('SELECT * FROM users WHERE socket_id = ?', socket.id, function(err,res){
             if(err) throw err;
@@ -160,6 +238,36 @@ io.on('connection', function(socket){
         socket.on('offTimer', function(){
             console.log(1);
             clearInterval(roomTimer);
+
+            connection.query('SELECT * FROM users WHERE socket_id = ?', socket.id, function(err,user){
+                if(err) throw err;
+                else{
+                    if(user.length > 0){
+                        if(user[0].gave == 0 && user[0].current_room != 0){
+                            connection.query('SELECT * FROM rooms WHERE ID = ?',parseInt(user[0].current_room), function(err,res){
+                                
+                                if(err) throw err;
+                                else{
+                                    if(res.length > 0){
+                                        console.log(true);
+                                        res = res[0];
+                                        if(res.STATUS != 1){
+                                            connection.query('UPDATE rooms SET ? WHERE ID = ?',[{USERS_COUNT: res.USERS_COUNT - 1}, res.ID], function(err,res){
+                                                if(err) throw err;
+                                                else{
+                                                    connection.query('UPDATE users SET ? WHERE vk_id = ?', [{current_room: 0, gave: 0}, user[0].vk_id], function(err, res){
+                                                        if(err) throw err;
+                                                    });
+                                                }
+                                            });
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+            });
         });
         },1200);
 
@@ -179,132 +287,135 @@ io.on('connection', function(socket){
 
     socket.on('searchRoom', function(userID){
         console.log('Search');
-        connection.query('SELECT * FROM users WHERE vk_id = ?', parseInt(userID), function(err,user){
-            if(err) throw err;
-            else{
-                if(user.length > 0){
+        if(userID != null){
+            console.log(userID);
+            connection.query('SELECT * FROM users WHERE vk_id = ?', parseInt(userID), function(err,user){
+                if(err) throw err;
+                else{
+                    if(user.length > 0){
 
-                    if(user[0].current_room == 0 || user[0].gave == 0){ // none
+                        if(user[0].current_room == 0 || user[0].gave == 0){ // none
 
-                        if((user[0].current_lvl % 2) == 0){ // Без остатка(2,4,6,8...)
-                            // Создаем комнату
+                            if((user[0].current_lvl % 2) == 0){ // Без остатка(2,4,6,8...)
+                                // Создаем комнату
 
-                            connection.query('SELECT * FROM levels WHERE LEVEL = ?', user[0].current_lvl, function(err,res){
-                                if(err) throw err;
-                                else{
-                                    if(res.length > 0){
-                                        var LEVEL = res[0];
-
-
-                                        console.log(true);
-                                        connection.query('SELECT * FROM rooms WHERE OWNER_ID = ?', userID, function(err,res){
-                                            if(err) throw err;
-                                            else{
-                                                if(res.length > 0){
-                                                    // Ошибка у вас уже есть комната
-
-                                                    socket.emit('enterHasOwner',{room: res[0]});
-                                                }else{
-                                                    if(LEVEL){
-                                                        connection.query('INSERT INTO rooms SET ?',{
-                                                            ROOM_LEVEL: user[0].current_lvl - 1,
-                                                            SUM: LEVEL.SUM,
-                                                            OWNER_ID: user[0].vk_id,
-                                                            BALANCE: 0,
-                                                            USERS_COUNT: 0,
-                                                            STATUS: 0
-                                                        }, function(err,res,fields){
-                                                            if(err) throw err;
-                                                            else{
-                                                                // getRoomInfo(user[0].vk_id);
-                                                                
-                                                                connection.query('SELECT * FROM rooms WHERE OWNER_ID = ?', userID, function(err,res){
-                                                                    if(err) throw err;
-                                                                    else{
-                                                                        if(res.length > 0){
-                                                                            var data = res[0];
-                                                                            if(data.STATUS == 0){
+                                connection.query('SELECT * FROM levels WHERE LEVEL = ?', user[0].current_lvl, function(err,res){
+                                    if(err) throw err;
+                                    else{
+                                        if(res.length > 0){
+                                            var LEVEL = res[0];
 
 
-                                                                                socket.emit('enterHasOwner',{room: data});
+                                            console.log(true);
+                                            connection.query('SELECT * FROM rooms WHERE OWNER_ID = ?', userID, function(err,res){
+                                                if(err) throw err;
+                                                else{
+                                                    if(res.length > 0){
+                                                        // Ошибка у вас уже есть комната
 
-                                                                                connection.query('UPDATE users SET ? WHERE vk_id = ?',[
-                                                                                {
-                                                                                    own_room: data.ID
-                                                                                },
-                                                                                    parseInt(userID)
-                                                                                ], function(err,res){
-                                                                                    if(err) throw err;
-                                                                                    else{
-                                                                                         // socket.emit('enterHasOwner',{room: data});
-                                                                                    }
-                                                                                });
+                                                        socket.emit('enterHasOwner',{room: res[0]});
+                                                    }else{
+                                                        if(LEVEL){
+                                                            connection.query('INSERT INTO rooms SET ?',{
+                                                                ROOM_LEVEL: user[0].current_lvl - 1,
+                                                                SUM: LEVEL.SUM,
+                                                                OWNER_ID: user[0].vk_id,
+                                                                BALANCE: 0,
+                                                                USERS_COUNT: 0,
+                                                                STATUS: 0
+                                                            }, function(err,res,fields){
+                                                                if(err) throw err;
+                                                                else{
+                                                                    // getRoomInfo(user[0].vk_id);
+                                                                    
+                                                                    connection.query('SELECT * FROM rooms WHERE OWNER_ID = ?', userID, function(err,res){
+                                                                        if(err) throw err;
+                                                                        else{
+                                                                            if(res.length > 0){
+                                                                                var data = res[0];
+                                                                                if(data.STATUS == 0){
+
+
+                                                                                    socket.emit('enterHasOwner',{room: data});
+
+                                                                                    connection.query('UPDATE users SET ? WHERE vk_id = ?',[
+                                                                                    {
+                                                                                        own_room: data.ID
+                                                                                    },
+                                                                                        parseInt(userID)
+                                                                                    ], function(err,res){
+                                                                                        if(err) throw err;
+                                                                                        else{
+                                                                                             // socket.emit('enterHasOwner',{room: data});
+                                                                                        }
+                                                                                    });
+                                                                                }
                                                                             }
                                                                         }
+                                                                    });
+                                                                }
+                                                            });
+                                                        }
+                                                    }
+                                                }
+                                            });
+
+                                        }
+                                    }
+                                });
+                            }else{
+                                connection.query('SELECT * FROM rooms WHERE USERS_COUNT < 3', function(err,res){
+                                    if(err) throw err;
+                                    else{
+                                        if(res.length > 0){
+                                            for(var i = 0; i <= res.length - 1; i++){
+                                                if(res[i].ROOM_LEVEL == user[0].current_lvl){
+                                                    console.log(user[0].user_balance + ' | ' + res[i].SUM);
+                                                    if(user[0].user_balance >= (res[i].SUM / 3)){                                               
+                                                        var room = res[i];
+                                                        connection.query('UPDATE rooms SET ? WHERE ?',[{USERS_COUNT: res[i].USERS_COUNT + 1},{ID: res[i].ID}],function(err,res){
+                                                            if(err) throw err;
+                                                            else{
+                                                                connection.query('UPDATE users SET ? WHERE vk_id = ?',[{current_room: room.ID}, userID], function(err,res){
+                                                                    if(err) throw err;
+                                                                    else{
+                                                                        socket.emit('enterRoom',{room: room, user: user[0], socketID: socket.id}); // CALLBACK
                                                                     }
                                                                 });
                                                             }
                                                         });
+
+                                                    }else{
+                                                        socket.emit('searchBalanceError',1);
                                                     }
+                                                    break;
                                                 }
                                             }
-                                        });
+                                        }else{
 
+                                            return false;
+                                        }
                                     }
-                                }
-                            });
-                        }else{
-                            connection.query('SELECT * FROM rooms WHERE USERS_COUNT < 3', function(err,res){
+                                });
+                            }
+                        }else if(user[0].gave == 1 && user[0].current_room > 0){
+                            connection.query('SELECT * FROM rooms WHERE ID = ?', parseInt(user[0].current_room), function(err,res){
                                 if(err) throw err;
                                 else{
                                     if(res.length > 0){
-                                        for(var i = 0; i <= res.length - 1; i++){
-                                            if(res[i].ROOM_LEVEL == user[0].current_lvl){
-                                                console.log(user[0].user_balance + ' | ' + res[i].SUM);
-                                                if(user[0].user_balance >= (res[i].SUM / 3)){                                               
-                                                    var room = res[i];
-                                                    connection.query('UPDATE rooms SET ? WHERE ?',[{USERS_COUNT: res[i].USERS_COUNT + 1},{ID: res[i].ID}],function(err,res){
-                                                        if(err) throw err;
-                                                        else{
-                                                            connection.query('UPDATE users SET ? WHERE vk_id = ?',[{current_room: room.ID}, userID], function(err,res){
-                                                                if(err) throw err;
-                                                                else{
-                                                                    socket.emit('enterRoom',{room: room, user: user[0], socketID: socket.id}); // CALLBACK
-                                                                }
-                                                            });
-                                                        }
-                                                    });
-
-                                                }else{
-                                                    socket.emit('searchBalanceError',1);
-                                                }
-                                                break;
-                                            }
-                                        }
-                                    }else{
-
-                                        return false;
+                                        var room = res[0];
+                                        socket.emit('enterRoom',{room: room, user: user[0], socketID: socket.id}); // CALLBACK
                                     }
                                 }
-                            });
+                            });   
                         }
-                    }else if(user[0].gave == 1 && user[0].current_room > 0){
-                        connection.query('SELECT * FROM rooms WHERE ID = ?', parseInt(user[0].current_room), function(err,res){
-                            if(err) throw err;
-                            else{
-                                if(res.length > 0){
-                                    var room = res[0];
-                                    socket.emit('enterRoom',{room: room, user: user[0], socketID: socket.id}); // CALLBACK
-                                }
-                            }
-                        });   
-                    }
-                    else{
-                       socket.emit('searchError',1);
+                        else{
+                           socket.emit('searchError',1);
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
     });
 
 
@@ -345,8 +456,7 @@ io.on('connection', function(socket){
                                                                             connection.query('SELECT * FROM rooms WHERE ID = ?', parseInt(ROOM.ID), function(err,res){
                                                                                 if(err) throw err;
                                                                                 else{
-                                                                                    if( res[0].BALANCE >= (res[0].SUM)  ){
-                                                                                        console.log('TRUE EEE');
+                                                                                    if( res[0].BALANCE >= (res[0].SUM)){
                                                                                         gameOver(res[0].ID); // Завершаем сессию комнаты
                                                                                     }
                                                                                 }
@@ -380,7 +490,47 @@ io.on('connection', function(socket){
             });
         }
     });
+	socket.on('getReplHistory', function(e){
+		connection.query('SELECT * FROM users WHERE socket_id = ?', socket.id, function(err,res){
+			if(err) throw err;
+			else{
+				if(res.length > 0){
+					console.log(res);
+					var user = res[0];
 
+					if(user){
+						connection.query('SELECT * FROM repls WHERE VK_ID = ? AND STATUS = 1 ORDER BY ID DESC LIMIT 25',user.vk_id, function(err,res){
+							if(err) throw err;
+							else{
+								if(res.length > 0){
+									var html = '';
+
+									for(var i = 0; i <= res.length - 1; i++){
+										html = html + `
+										<tr>
+											<td>`+ res[i].ID +`</td>	
+											<td>`+ res[i].DATE +`</td>	
+											<td> <img src='/images/paySystem/`+ res[i].PAY_SYS +`.png' height="20">` + res[i].REQ +`</td>	
+											<td>`+ res[i].SUM +`</td>	
+										</tr>
+										`;
+
+
+										if (i == (res.length - 1)) {
+											socket.emit('getReplHistory', html);
+										}
+									}
+								}else{
+									// Пополнения отсутствуют
+									socket.emit('getReplHistory', '<p style="color: #FEFEFE; margin-top: 20px;">Пополнения отсутствуют</p>');
+								}
+							}
+						});
+					}
+				}
+			}
+		});
+	});
     socket.on('getOutputHistory', function(e){
         connection.query('SELECT * FROM users WHERE socket_id = ?', socket.id, function(err,res){
             if(err){
@@ -737,7 +887,7 @@ io.on('connection', function(socket){
                                                                         
                                                                             if(USER){
                                                                                 connection.query('UPDATE users SET ? WHERE vk_id = ?',[{current_room: 0,current_lvl: USER.current_lvl + 1,gave: 0}, USER.vk_id], function(err,res){
-                                                                                        if(err) throw err;
+                                                                                    if(err) throw err;
                                                                                 });
                                                                                 connection.query('INSERT INTO userGameHistory SET ?',{ USER_ID: USER.id, USER_VK: USER.vk_id, GAME_ID: ROOM.ID }, function(err,res){
                                                                                     if(err) throw err;
@@ -773,9 +923,6 @@ io.on('connection', function(socket){
 
 
     function getLastGames(all){
-
-
-
 
         connection.query('SELECT * FROM gameHistory ORDER BY ID DESC LIMIT 25', function(err,games){
             if(err) throw err;
@@ -896,13 +1043,13 @@ bot.on('callback_query', function(msg){
 
 
                var object = {
-               		DailyProfit: 		0, // Дневной Заработок
-               		UserRegToday: 		0, // Зарегистрированно Сегодня
-               		CurrentUsersOnline: currentUsersCount, // Кол-во пользователей Онлайн
-               		TotalEarnings:      0, // Общий Заработок
-               		UsersCount:         0, // Кол-во пользователей
-               		TotalClosedRooms:   0, // Кол-во завершенных комнат
-               		TotalOpenedRooms:   0  // Кол-во открытых комнат
+                    DailyProfit:        0, // Дневной Заработок
+                    UserRegToday:       0, // Зарегистрированно Сегодня
+                    CurrentUsersOnline: currentUsersCount, // Кол-во пользователей Онлайн
+                    TotalEarnings:      0, // Общий Заработок
+                    UsersCount:         0, // Кол-во пользователей
+                    TotalClosedRooms:   0, // Кол-во завершенных комнат
+                    TotalOpenedRooms:   0  // Кол-во открытых комнат
 
                }
 
@@ -910,92 +1057,92 @@ bot.on('callback_query', function(msg){
 
 
                if(object){
-               		connection.query('SELECT * FROM buyResetLevel', function(err,res){
-               			if(err) throw err;
-               			else{
-               				if(res.length > 0){
-               					
-               					for(var i = 0; i <= res.length - 1; i++){
-               						object.TotalEarnings = object.TotalEarnings + res[i].SUM;
+                    connection.query('SELECT * FROM buyResetLevel', function(err,res){
+                        if(err) throw err;
+                        else{
+                            if(res.length > 0){
+                                
+                                for(var i = 0; i <= res.length - 1; i++){
+                                    object.TotalEarnings = object.TotalEarnings + res[i].SUM;
 
 
-               						if(res[i].DATE == currentDate){
-               							object.DailyProfit = object.DailyProfit + res[i].SUM;
-               						}
+                                    if(res[i].DATE == currentDate){
+                                        object.DailyProfit = object.DailyProfit + res[i].SUM;
+                                    }
 
 
-               						if((res.length - 1) == i ){
-		               					connection.query('SELECT * FROM users WHERE reg_date = ?', currentDate, function(err,res){
-		               						if(err) throw err;
-		               						else{
-	               								object.UserRegToday = res.length;
+                                    if((res.length - 1) == i ){
+                                        connection.query('SELECT * FROM users WHERE reg_date = ?', String(currentDate), function(err,res){
+                                            if(err) throw err;
+                                            else{
+                                                object.UserRegToday = res.length;
 
-	               								connection.query('SELECT * FROM users', function(err,res){
-	               									if(err) throw err;
-	               									else{
-	               	
-	               											object.UsersCount = res.length
+                                                connection.query('SELECT * FROM users', function(err,res){
+                                                    if(err) throw err;
+                                                    else{
+                    
+                                                            object.UsersCount = res.length
 
-	               											connection.query('SELECT * FROM rooms', function(err,res){
-	               												if(err) throw err;
-	               												else{
-	               													object.TotalOpenedRooms = res.length;
+                                                            connection.query('SELECT * FROM rooms', function(err,res){
+                                                                if(err) throw err;
+                                                                else{
+                                                                    object.TotalOpenedRooms = res.length;
 
-		           													connection.query('SELECT * FROM gameHistory', function(err,res){
+                                                                    connection.query('SELECT * FROM gameHistory', function(err,res){
 
-		           														if(err) throw err;
-		           														else{
-		           															object.TotalClosedRooms = res.length;
+                                                                        if(err) throw err;
+                                                                        else{
+                                                                            object.TotalClosedRooms = res.length;
 
-		  // Дневной заработок
-		  // Зарегистрированно сегодня
-		  // Текущий Онлайн
-		  // Общий заработок
-		  // Кол-во пользователей
-		  // Общее кол-во завершенных комнат
-		  // Общее кол-во открытых комнат
-
-
-		           															  var message = `
-		➖➖➖ <b>СТАТИСТИКА</b> ➖➖➖
-
-		<b>🔸Дневной Заработок:</b> <i> `+ object.DailyProfit +`  руб.</i> 
-		<b>🔹Общий Заработок:</b> <i> `+ object.TotalEarnings +`  руб.</i>
-		<b>🔰Текущий Онлайн:</b> <i> `+ object.CurrentUsersOnline +` </i>
-		<b>✳️Зарегистрированных Сегодня:</b> <i> `+ object.UserRegToday +` </i>
-		<b>👨🏼‍💻Кол-во пользователей:</b> <i> `+ object.UsersCount +` </i>
-		<b>❌Общее кол-во завершенных комнат:</b> <i> `+ object.TotalClosedRooms +` </i>
-		<b>✅Общее кол-во открытых комнат:</b> <i> `+ object.TotalOpenedRooms +` </i>
-		           															  `;
+          // Дневной заработок
+          // Зарегистрированно сегодня
+          // Текущий Онлайн
+          // Общий заработок
+          // Кол-во пользователей
+          // Общее кол-во завершенных комнат
+          // Общее кол-во открытых комнат
 
 
-		           															  if(msg){
+                                                                              var message = `
+        ➖➖➖ <b>СТАТИСТИКА</b> ➖➖➖
 
-		           															  	  
-																	              bot.deleteMessage(userID, msg.message.message_id);
-																	              bot.sendMessage(userID, message, {parse_mode: 'html', reply_markup:{
-																	                'inline_keyboard': [
-																	                    [{text: '📝Назад в Меню', callback_data: 'BACK_TO_MENU'}]
-																	                ]
-																	               }});
-		           															  }
+        <b>🔸Дневной Заработок:</b> <i> `+ object.DailyProfit +`  руб.</i> 
+        <b>🔹Общий Заработок:</b> <i> `+ object.TotalEarnings +`  руб.</i>
+        <b>🔰Текущий Онлайн:</b> <i> `+ object.CurrentUsersOnline +` </i>
+        <b>✳️Зарегистрированных Сегодня:</b> <i> `+ object.UserRegToday +` </i>
+        <b>👨🏼‍💻Кол-во пользователей:</b> <i> `+ object.UsersCount +` </i>
+        <b>❌Общее кол-во завершенных комнат:</b> <i> `+ object.TotalClosedRooms +` </i>
+        <b>✅Общее кол-во открытых комнат:</b> <i> `+ object.TotalOpenedRooms +` </i>
+                                                                              `;
 
 
-		           														}
-		           													});
-		           												}
-		           											})
-	               										
-	               									}
-	               								});	
-		               						}
+                                                                              if(msg){
 
-		               					})
-               						}
+                                                                                  
+                                                                                  bot.deleteMessage(userID, msg.message.message_id);
+                                                                                  bot.sendMessage(userID, message, {parse_mode: 'html', reply_markup:{
+                                                                                    'inline_keyboard': [
+                                                                                        [{text: '📝Назад в Меню', callback_data: 'BACK_TO_MENU'}]
+                                                                                    ]
+                                                                                   }});
+                                                                              }
 
-               					}
 
-               				}else{
+                                                                        }
+                                                                    });
+                                                                }
+                                                            })
+                                                        
+                                                    }
+                                                }); 
+                                            }
+
+                                        })
+                                    }
+
+                                }
+
+                            }else{
 
                                 bot.sendMessage(userID, '<b>Статистика Отсутствует</b>', {parse_mode: 'html', reply_markup:{
                                 'inline_keyboard': [
@@ -1003,11 +1150,11 @@ bot.on('callback_query', function(msg){
                                 ]
                                }});
                             }
-               			}
+                        }
 
 
 
-               		});
+                    });
                }
 
 
@@ -1225,6 +1372,29 @@ function _Init(){
                     });
 
                     if(i == users.length - 1){
+                    	console.log(`
+TTTTTTTTTT TT   TT  TTTTTT      TTTT     TT      TT      TT
+    TT     TT   TT  TT   TT   TT    TT    TT    TTTT    TT
+    TT     TTTTTTT  TTTTT    TT      TT    TT  TT TT  TT
+    TT     TT   TT  TT  TT    TT    TT      TTTT   TTTT
+    TT     TT   TT  TT   TT     TTTT         TT     TT
+
+		TTTT    TTTT  TTTTTT
+		TT TT  TT TT  TT
+		TT  TTTT  TT  TTTTTT
+		TT   TT   TT  TT
+		TT        TT  TTTTTT
+
+
+	   T H R O W M E - 2 0 1 9
+
+
+  DEV:           EDUARD SHUMKOV
+  PRODUCT TYPE:  WEB-SITE
+  PRODUCT NAME:  THROWME
+  DOMAIN:        THROWME.RU
+  IP ADRESS:     37.230.115.44
+                    		`);
                         console.log('Инициализация Базы Данных прошла успешно');
                     }
                 }
@@ -1245,6 +1415,78 @@ function _Init(){
     //     }
     // });
 }
+
+
+
+app.get('/repl', function(req,resl){
+
+  // ПОПОЛНЕНИЕ
+  console.log(req.query);
+  var MERCHANT_ID       = req.query.MERCHANT_ID,          // ID Вашего магазина
+      AMOUNT            = req.query.AMOUNT,               // Сумма заказа
+      intid             = req.query.intid,                // Номер операции Free-Kassa
+      MERCHANT_ORDER_ID = req.query.MERCHANT_ORDER_ID,    // Ваш номер заказа
+      P_EMAIL           = req.query.P_EMAIL,              // Email плательщика
+      SIGN              = req.query.SIGN;                 // Подпись
+
+      resl.send(req.query);
+      connection.query('SELECT * FROM repls WHERE HASH_ID = ?', MERCHANT_ORDER_ID, function(err,results){
+        var repl = results[0];
+        if(err) throw err;
+        else{
+            if(results.length > 0){
+                if(parseInt(MERCHANT_ORDER_ID) == repl.HASH_ID && MERCHANT_ID == config.freekassa.m_id && SIGN == repl.SIGN_2 && repl.STATUS == 0){
+                    connection.query('SELECT * FROM users WHERE vk_id = ?',repl.VK_ID, function(err,user){
+                        if(err) throw err;
+                        else{
+                            var user = user[0];
+
+                                var CURRENT_BALANCE =  user.user_balance,
+                                    USER_TOTAL_REPL =  user.user_replenishment,
+                                    SUMM            =  parseFloat(AMOUNT);
+
+                                var result = CURRENT_BALANCE + SUMM,
+                                    UTR    = USER_TOTAL_REPL + SUMM
+
+                                if(result){
+                                    connection.query('UPDATE users SET ? WHERE vk_id = ?', [{user_balance: result,  user_replenishment: UTR}, user.vk_id], function(err,res){
+                                        if(err) throw err;
+                                        else{
+                                            connection.query('UPDATE repls SET ? WHERE ID = ?', [{EMAIL: P_EMAIL, ORDER_ID: intid, STATUS: 1}, repl.ID], function(err,res){
+                                                if(err) throw err;
+                                                else{
+                                                    console.log('Счет пополнен успешно');
+                                                    connection.query('SELECT * FROM users WHERE id = ?', user.user_ref, function(err,res){
+                                                        if(err) throw err;
+                                                        else{
+                                                            if(res.length > 0){
+                                                                var BALANCE = res[0].user_balance,
+                                                                    r = BALANCE + ((SUMM / 100) * 10);
+                                                                    r = parseFloat(r).toFixed(2);
+
+                                                                    if(r){
+                                                                        connection.query('UPDATE users SET ? WHERE vk_id = ?', [{user_balance: r}, res[0].vk_id], function(err,res){
+                                                                            if(err) throw err;
+                                                                        });
+                                                                    }
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                        }
+                    });
+                }else{
+                    // Попытка мошенничества
+                    console.log('Пополнение уже совершенно');
+                }
+            }
+        }
+      });
+});
 
 
 /// Запускаем Сервер

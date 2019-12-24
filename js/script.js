@@ -4,7 +4,8 @@ $(document).ready(function(e){
 	/// SOCKET.IO
 
 	var socket = "";
-       	socket = io.connect('http://localhost:3000'); // подключение к сокету 
+		   // socket = io.connect('https://throwme.ru', {secure: true, resource: '/socket.io'});
+		   socket = io.connect('http://localhost:3000'); // Законментировать после выхода на прод.
 
 	socket.on('connect', function(e){
 
@@ -46,9 +47,9 @@ $(document).ready(function(e){
 			ModalClose    = document.querySelector('#window-close')
 
 		var outPutHistory      = document.querySelector('.outPutHistory'),
-			outPutButtonSubmit = document.querySelector('#outMoney');
-
-
+			outPutButtonSubmit = document.querySelector('#outMoney'),
+			replHistory        = document.querySelector('.replHistory'),
+			replButtonSubmit   = document.querySelector('.submitRepl button');
 
 
 		for(var i = 0; i <= openModal.length - 1; i++){
@@ -58,7 +59,36 @@ $(document).ready(function(e){
 		}
 
 
+		replButtonSubmit.addEventListener('click', function(e){
+			var paySystem   = document.querySelector('.window-money-repl .paySystem').value,
+				sum         = document.querySelector('.window-money-repl .sum').value,
+				requisites  = document.querySelector('.window-money-repl .repl_requisites').value;
+				errorZone   = document.querySelector('.submitRepl #error');
+			var errors = null;
 
+
+			if(paySystem.length == 0){
+				errors = 'Выберите Платежную Систему';
+			}else if(sum.length == 0){
+				errors = 'Укажите Сумму пополнения';
+			}else if(requisites.length <= 9){
+				errors = 'Поле Реквизиты указанно не верно';
+			}
+
+			if(errors != null){
+		    	errorZone.innerHTML = errors;
+
+		    	setTimeout(function(){ errorZone.innerHTML = ""},4000);
+		    }else{
+		    	socket.emit('replSubmit',{
+		    			paySys: paySystem,
+		    			sum: sum,
+		    			req: requisites
+	    		});
+		    }
+
+
+		});
 
 		outPutButtonSubmit.addEventListener('click', function(e){
 			var requisites = document.querySelector('.requisites').value,
@@ -83,11 +113,6 @@ $(document).ready(function(e){
 		    }else{
 		    	socket.emit('outPutBalance',[paySystem,requisites])
 		    }
-
-
-
-
-
 
 		});
 		ModalClose.addEventListener('click', function(e){
@@ -181,6 +206,7 @@ $(document).ready(function(e){
 
 			for(var i = 0; i <= navbarMenu.length - 1; i++){
 				navbarMenu[i].addEventListener('click', function(e){
+					socket.emit('offTimer');
 					var hasActive = document.querySelector('.nav-bar-menu .active');
 						hasActive.classList.remove('active');
 
@@ -229,6 +255,23 @@ $(document).ready(function(e){
 		}
 	});
 
+	socket.on('redirect', function(url){
+		window.location.replace(url);
+	});
+
+
+
+
+
+
+
+
+
+
+	socket.on('getReplHistory', function(e){
+		var tbody = document.querySelector('.window-money-repl-history table tbody');
+			tbody.innerHTML = e;
+	});
 	socket.on('getOutPutHistory', function(e){
 		var tbody = document.querySelector('.window-money-output-history table tbody');
 			tbody.innerHTML = e;
@@ -291,25 +334,23 @@ $(document).ready(function(e){
 
 		socket.on('gameOver', function(e){
 		  // Вернуть в главное меню
-		  document.location.reload(true);
+		  openModalWindow({open: "4"});
 		});
 	});
 
 	socket.on('lastGameAction', function(e){
+
 		var last_gamebar = document.querySelector('.last-game-bar .block table tbody');
 
-			if(e){
-				last_gamebar.innerHTML = e;
+			if(last_gamebar){	
+				if(e){
+					last_gamebar.innerHTML = e;
+				}
 			}
 
 
+
 	});
-
-	socket.on('test', function(e){
-		alert('test');
-	});
-
-
 
 	function begin(){
 
@@ -426,8 +467,8 @@ $(document).ready(function(e){
 		});
 
 		socket.on('gameOver', function(e){
-		  // Вернуть в главное меню
-		  document.location.reload(true);
+		  // Открыть Модальное Окно о завершении Игры
+		  openModalWindow({open: "4"});
 		});
 	}
 
@@ -446,9 +487,9 @@ $(document).ready(function(e){
 	function openModalWindow(modalID){
 		closeModals(); // Закрывает все Модальные Окна
 		updateData();
-
-		var id = modalID.open; 	// 0 = Пополнение		3 = Завершение Игры
-								// 1 = Вывод средств    4 = История Пополнений
+		console.log(modalID);
+		var id = modalID.open; 	// 0 = Пополнение		3 = История Пополнений
+								// 1 = Вывод средств    4 = Завершение Игры
 								// 2 = История Вывода
 
 		var ModalZone = document.querySelector('.modal-window'),
@@ -482,6 +523,7 @@ $(document).ready(function(e){
 	function updateData(){
 		socket.emit('getBalance');
 		socket.emit('getOutputHistory');
+		socket.emit('getReplHistory');
 	}
 
 });

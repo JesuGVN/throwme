@@ -398,15 +398,14 @@ body::-webkit-scrollbar-track {
 				  			}
 		.page-wrapper .last-game-bar{
 			/* code ...*/
+			overflow: hidden !important;
+		    padding: 0 !important;
+		    position: relative;
 		}
 			.page-wrapper .last-game-bar .block{
 				background: #131524;
 				padding: 10px;
-
 				max-height: 500px;
-
-				overflow: scroll;
-
 				color: #fefefe;
 			}
 				.page-wrapper .last-game-bar .block h3{
@@ -415,17 +414,17 @@ body::-webkit-scrollbar-track {
 					font-size: 22px;
 				}
 
-					.page-wrapper .last-game-bar .block::-webkit-scrollbar {
+					./*scroll::-webkit-scrollbar {
 						    width: 2px;
 						    height: 1px;
 						    background: rgba(0, 0, 0, 0.4);
 					}
-					.page-wrapper .last-game-bar .block::-webkit-scrollbar-thumb {
+					.scroll::-webkit-scrollbar-thumb {
 					    background-color: #ED3E20;
 					}
-					.page-wrapper .last-game-bar .block::-webkit-scrollbar-track {
+					.scroll::-webkit-scrollbar-track {
 					    border-width: 0;
-					}
+					}*/
 				.page-wrapper .last-game-bar .block table{
 					/*border: 1px solid #fefefe;*/
 					color: #fefefe;
@@ -885,12 +884,80 @@ body::-webkit-scrollbar-track {
 				margin: 0 auto;
 			}
 
+	
+	.window-money-repl{
+		/*/ code here */
+		padding-top: 20px;
+		color: #8A9DA9;
+	}
+		.window-money-repl input{
+			width: 100%;
+			padding: 5px;
+
+			border: none;
+			border-radius: 4px;
+
+			outline: none;
+		}
+		.window-money-repl select{
+			width: 50%;
+			padding: 5px;
+
+			border: none;
+			border-radius: 4px;
+
+			outline: none;
+		}
+			.window-money-repl button{
+			display: block;
+			background: #FF5D2B;
+
+			border: none;
+			border-radius: 4px;
+			width: 120px;
+			padding: 10px;
+			margin: 0 auto;
+
+			color: #fefefe;
+			/*float: right;*/
+
+			outline: none;
+
+			transition: all 0.3s;
+		}
+			.window-money-repl button:hover{
+				background: #D93705;
+			}
+		.window-money-repl .submitRepl{
+			height: 85px;
+			margin-top: 30px;
+		}
+		.window-money-repl .moreRepl{
+			width: 100%;
+			text-align: center;
+		}
+			.window-money-repl .moreRepl a{
+				text-decoration: none;
+			}
+		.window-money-repl .comission{
+
+			width: 200px;
+			background: #8A9DA9;
+			padding: 2px;
+			margin-top: 10px;
+			border-radius: 3px;
+
+			color: #172A36;
+			text-align: center;
+			font-style: bold;
+
+			cursor: pointer;
+		}
+
 	.window-money-output{
 		/*/ code here */
 		padding-top: 20px;
 		color: #8A9DA9;
-
-
 	}
 		.window-money-output select{
 			width: 50%;
@@ -1022,24 +1089,82 @@ body::-webkit-scrollbar-track {
 					}
 
 
+
+
+
+		.window-money-repl-history{
+				max-height: 400px;
+				overflow-y: scroll;
+		}
+
+		  .window-money-repl-history::-webkit-scrollbar{
+			width: 2px;
+		    height: 1px;
+		    background: rgba(0, 0, 0, 0.1);
+		  }
+		  .window-money-repl-history::-webkit-scrollbar-thumb{
+		    background-color: #ED3E20;
+		  }
+		  .window-money-repl-history::-webkit-scrollbar-track{
+		    border-width: 0;
+		  }
+			.window-money-repl-history table{
+				table-layout: fixed;
+				width: 100%;
+
+				font-size: 15px;
+			}
+				.window-money-repl-history table th{
+					color: #FF5D2B;
+					text-align: center;
+				}
+					.window-money-repl-history table td{
+						color: #888A98;
+						text-align: center;
+					}
+
+		.window-game-over{
+			text-align: center;
+			color: #888A98;
+
+			padding-top: 100px;
+		}
+			.window-game-over button{
+				border: 0;
+				border-radius: 4px;
+
+				width: 80px;
+				height: 40px;
+
+				color: #fefefe;
+				background: #ED3E20;
+
+				margin-top: 100px;
+				outline: none;
+			}
+				.window-game-over button:hover{
+					background: #DF3021;
+				} 	
+
+
 	/* ======= < СПИСОК ПОСЛЕДНИХ ВЫПЛАТ >======= НАЧАЛО */
 	.widthdraws {
-	    width: 100%;
-	    margin: 0 auto;
-	    user-select: none;
+		
 
-	/* ФОН ТАБЛИЦА */
-	} .widthdraws .bg-widthdraws {
+	 	width: 95%;
+		margin: 0 auto;
+	    user-select: none;
 	    background-color: #131524;
 	    border-radius: 3px;
-	    width: 70%;
-	    margin: 0 auto;
 	    height: auto;
 	    box-sizing: border-box;
-	    overflow-x: auto;
-	    /* ТАБЛИЦА */
-	} .widthdraws .bg-widthdraws table {
-		min-width: 888px;
+	    margin: 0px 0px 26px 0px;
+	}
+	.widthdraws .bg-widthdraws {
+
+	}
+		  /* ТАБЛИЦА */
+	 .widthdraws .bg-widthdraws table {
 		text-align: center;
 	    font-size: 18px;
 	    width: 100%;
@@ -1056,18 +1181,35 @@ body::-webkit-scrollbar-track {
 	    padding: 10px 0px 10px 20px; 
 	    caption-side: top;
 	/* ====== < SCROLLBAR - ПОСЛЕДНИХ ВЫПЛАТ > ====== НАЧАЛО */
-	} .widthdraws .bg-widthdraws::-webkit-scrollbar {
+	} .widthdraws::-webkit-scrollbar {
 	    width: 2px;
 	    height: 1px;
 	    background: rgba(0, 0, 0, 0.1);
-	} .widthdraws .bg-widthdraws::-webkit-scrollbar-thumb {
+	} .widthdraws::-webkit-scrollbar-thumb {
 		background-color: #ED3E20;
-	} .widthdraws .bg-widthdraws:-webkit-scrollbar-track {
+	} .widthdraws::-webkit-scrollbar-track {
 		border-width: 0;
 	} .widthdraws .bg-widthdraws img {
 		pointer-events: none;
 	}
     /* ====== </ SCROLLBAR - ПОСЛЕДНИХ ВЫПЛАТ > ====== КОНЕЦ */
+	@media (max-width: 767) {
+		.widthdraws .bg-widthdraws table {
+			font-size: 13px;
+		}
+	}
+	
+	@media (max-width: 768) {
+		.widthdraws .bg-widthdraws table {
+			font-size: 15px;
+		}
+	}
+
+	@media (max-width: 414px) {
+		.widthdraws .bg-widthdraws table {
+			font-size: 11px;
+		}
+	}
 
 
 	/* ======= </ СПИСОК ПОСЛЕДНИХ ВЫПЛАТ />======= КОНЕЦ */

@@ -1,10 +1,13 @@
-<?php require_once('./includes/header.php'); // Шапка ?>
+<?php require_once('./includes/header.php'); // Шапка 
+
+	$withdraws = R::getAll('SELECT * FROM withdraws WHERE STATUS = "DONE" ORDER BY ID DESC LIMIT 50');
+?>
 
 <!-- Тут пиши свой HTML -->
 <div class="widthdraws" >
 		<div class="bg-widthdraws"> 
 					<table align="center">
-						<caption class="caption-side">Последние выплаты</caption>
+						<caption class="caption-side"><h3 style="text-align: center;">Последние выплаты</h3></caption>
 						<thead>
 							<th>ID Игрока</th>
 							<th>Сумма</th>
@@ -12,28 +15,15 @@
 							<th>Кошелек</th>
 							<th>Дата Выплаты</th>
 						</thead>
+						<?php  foreach($withdraws as $withdraw){ ?>
 						<tbody>
-							<td>1889713</td>
-							<td>150.00</td>
-							<td><img src="images/qiwi.png" alt=""> Qiwi</td>
-							<td>****3717</td>
-							<td>29.10.2019 13:22</td>
+							<td><?php echo $withdraw['USER_VK']; ?></td>
+							<td><?php echo $withdraw['SUM']; ?></td>
+							<td title="<?php echo $withdraw['PAY_SYSTEM'] ?>"><img height="30" src="images/paySystem/<?php echo $withdraw['PAY_SYSTEM'] ?>.png" alt="<?php echo $withdraw['PAY_SYSTEM'] ?>"></td>
+							<td><?php echo '*****'.substr($withdraw['NUMBER'], -4, strlen($withdraw['NUMBER']) ); ?></td>
+							<td><?php echo $withdraw['DATE'];?></td>
 						</tbody>
-						<tbody>
-							<td>1889713</td>
-							<td>150.00</td>
-							<td><img src="images/qiwi.png" alt=""> Qiwi</td>
-							<td>****3717</td>
-							<td>29.10.2019 13:22</td>
-						</tbody>
-						<tbody>
-							<td>1889713</td>
-							<td>150.00</td>
-							<td><img src="images/qiwi.png" alt=""> Qiwi</td>
-							<td>****3717</td>
-							<td>29.10.2019 13:22</td>
-						</tbody>
-						<tbody>
+						<?php } ?>
 					</table>
 			</div>
 	</div>

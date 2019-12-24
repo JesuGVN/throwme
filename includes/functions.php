@@ -38,11 +38,12 @@
 		require 'referals.php';
 	}
 
-	function getLevelList(){
+function getLevelList(){
 			// Init
 		$USER_INFO  = R::findOne('users', 'vk_id = ?', array($_SESSION['logged_user']->vk_id));
 		$LEVELS     = R::getAll('SELECT * FROM levels');
 		$LEVEL_INFO = R::findOne('levels', 'LEVEL = ?', array($USER_INFO->current_lvl));
+		
 
 		$LEVEL_INFO = $LEVEL_INFO->export();
 	 ?>				
@@ -74,9 +75,8 @@
 
 							<div class="nav-bar-menu">
 								<ul>
-									<li><a href="#" id="begin" class="active">Начать</a></li>
+									<li><a href="#" id="begin" class="active">Главная</a></li>
 									<li><a href="#" id="myRef">Мои Рефералы</a></li>
-									<li><a href="#" id="regulations">Правила</a></li>
 									<li><a href="/logout.php">Выход</a></li>
 								</ul>
 							</div>
@@ -96,26 +96,36 @@
 											<? 
 											foreach($LEVELS as $level){
 
-												if($USER_INFO->current_lvl < $level['LEVEL']){ ?>
-													<li>
-														<div class="element">
-															<img src="./images/lvls/<?php echo $level['LEVEL'] ?>.png" height="70">
-															<small><? echo $level['SUM']?> Рублей</small>
-														</div>
-													</li>
+												if($level['LEVEL'] <= 4){
 
-											  <?}else if($USER_INFO->current_lvl == $level['LEVEL']){ ?>
+													if($USER_INFO->current_lvl < $level['LEVEL']){ ?>
+														<li>
+															<div class="element" title="Доступный Уровень">
+																<img src="./images/lvls/<?php echo $level['LEVEL'] ?>.png" height="70">
+																<small><? echo $level['SUM']?> Рублей</small>
+															</div>
+														</li>
 
+												  <?}else if($USER_INFO->current_lvl == $level['LEVEL']){ ?>
+
+														<li>
+															<div class="element" title="Текущий Уровень">
+																<img src="./images/lvls/current_<?php echo $level['LEVEL'] ?>.png" height="70">
+																<small><? echo $level['SUM']?> Рублей</small>
+															</div>
+														</li>
+													<?}else{?>
+														<li>
+															<div class="element" title="Уровень Пройден">
+																<img src="./images/lvls/blocked_<?php echo $level['LEVEL'] ?>.png" height="70">
+																<small><? echo $level['SUM']?> Рублей</small>
+															</div>
+														</li>
+													<?}
+												}else{ ?>
 													<li>
-														<div class="element">
-															<img src="./images/lvls/current_<?php echo $level['LEVEL'] ?>.png" height="70">
-															<small><? echo $level['SUM']?> Рублей</small>
-														</div>
-													</li>
-												<?}else{?>
-													<li>
-														<div class="element">
-															<img src="./images/lvls/blocked_<?php echo $level['LEVEL'] ?>.png" height="70">
+														<div class="element" title="Временно Заблокирован">
+															<img src="./images/lvls/<?php echo $level['LEVEL'] ?>_blocked.png" height="70">
 															<small><? echo $level['SUM']?> Рублей</small>
 														</div>
 													</li>
@@ -180,26 +190,36 @@
 											<? 
 											foreach($LEVELS as $level){
 
-												if($USER_INFO->current_lvl < $level['LEVEL']){ ?>
-													<li>
-														<div class="element">
-															<img src="./images/lvls/<?php echo $level['LEVEL'] ?>.png" height="70">
-															<small><? echo $level['SUM']?> Рублей</small>
-														</div>
-													</li>
+												if($level['LEVEL'] <= 4){
 
-											  <?}else if($USER_INFO->current_lvl == $level['LEVEL']){ ?>
+													if($USER_INFO->current_lvl < $level['LEVEL']){ ?>
+														<li>
+															<div class="element" title="Доступный Уровень">
+																<img src="./images/lvls/<?php echo $level['LEVEL'] ?>.png" height="70">
+																<small><? echo $level['SUM']?> Рублей</small>
+															</div>
+														</li>
 
+												  <?}else if($USER_INFO->current_lvl == $level['LEVEL']){ ?>
+
+														<li>
+															<div class="element" title="Текущий Уровень">
+																<img src="./images/lvls/current_<?php echo $level['LEVEL'] ?>.png" height="70">
+																<small><? echo $level['SUM']?> Рублей</small>
+															</div>
+														</li>
+													<?}else{?>
+														<li>
+															<div class="element" title="Уровень Пройден">
+																<img src="./images/lvls/blocked_<?php echo $level['LEVEL'] ?>.png" height="70">
+																<small><? echo $level['SUM']?> Рублей</small>
+															</div>
+														</li>
+													<?}
+												}else{ ?>
 													<li>
-														<div class="element">
-															<img src="./images/lvls/current_<?php echo $level['LEVEL'] ?>.png" height="70">
-															<small><? echo $level['SUM']?> Рублей</small>
-														</div>
-													</li>
-												<?}else{?>
-													<li>
-														<div class="element">
-															<img src="./images/lvls/blocked_<?php echo $level['LEVEL'] ?>.png" height="70">
+														<div class="element" title="Временно Заблокирован">
+															<img src="./images/lvls/<?php echo $level['LEVEL'] ?>_blocked.png" height="70">
 															<small><? echo $level['SUM']?> Рублей</small>
 														</div>
 													</li>
@@ -217,7 +237,6 @@
 										<div class="info">
 										<h1>Информация</h1>
 											<ul>
-
 												<li style="color: #FF5D2B">Уровень комнаты - <small id="room_level"><?php echo $LEVEL_INFO['LEVEL'] ?></small></li>
 												<li style="color: #FF5D2B;">Тип уровня - <small id="level_type"><?php echo $LEVEL_INFO['TYPE'] ?></small></li>
 												<? if($LEVEL_INFO['ACTION'] == 0){ ?>
@@ -259,7 +278,35 @@
 
 							<div class="window-money-repl" id="window" data-modal="0" style="display: block;">
 								<!-- Окно Пополнения Баланса -->
-								<h1>Пополнение</h1>
+									<p>
+										<b>Выберите Систему:</b><br>
+										<select name="select" class="paySystem"> <!--Supplement an id here instead of using 'name'-->
+										  <option value="63">QIWI</option> 
+										  <option value="45">Яндекс.Деньги</option>
+										  <option value="114">PAYEER</option>
+										  <option value="80">СБЕРБАНК</option>
+										  <option value="1" disabled>WebMoney(В разработке)</option>
+										  <option value="94" disabled>VISA/MASTERCARD(В разработке)</option>
+										</select>
+									</p>
+									<p>
+										<b>Укажите Сумму:</b>
+										<input type="text" placeholder="Сумма" class="sum">
+									</p>
+									<p>
+										<b>Укажите Реквизиты:</b>
+										<input type="text" placeholder="+79XXXXXXXXX" class="repl_requisites">
+									</p>
+									<small><b>Примечание:</b> Минимальная сумма пополнения 10 рублей <div class="comission">Все комиссии на пользователе</div></small>
+									<div class="submitRepl">
+										<small id="error" style="color: red;"></small>
+										<button>Пополнить</button>
+									</div>
+									<div class="moreRepl">
+								
+										<a href="#" class="replHistory" id="openmodal" data-open="3"><i class="fas fa-long-arrow-alt-down"></i> Мои Пополнения <i class="fas fa-long-arrow-alt-down"></i></a>
+									</div>
+
 							</div>
 
 							<div class="window-money-output" id="window" data-modal="1" style="display: block;">
@@ -280,7 +327,7 @@
 								</p>
 								<p>
 									<b>Сумма:</b><br>
-									<input type="text" disabled value="713" id="userOutBalance" title="К заполнению не подлежит">
+									<input type="text" disabled value="Загрузка..." id="userOutBalance" title="К заполнению не подлежит">
 								</p>
 
 								<small><b>Примечание:</b> Для работоспособности Реферальных програм и Платежных Систем мы выводим весь оставшийся баланс на вашем счету! <div class="comission" title="Сервису приходиться на что-то жить и иметь с этого выгоду=)">Комисcия: 10%</div></small>
@@ -355,55 +402,59 @@
 												<div id="wait">ЗАГРУЗКА</div>
 											</td>
 										</tr>
-										<!-- <tr>
-											<td>6482055</td>
-											<td>31.09.19 14:42:21</td>
-											<td>+998915080258</td>
-											<td>1500.00</td>
-											<td >
-												<div id="wait">В Ожидании</div>
-												<i class="fas fa-times cancel" title="Отменить Выплату"></i>
-											</td>
-										</tr>
-										<tr>
-											<td>6482055</td>
-											<td>30.09.19 13:12:41</td>
-											<td>+998915080258</td>
-											<td>1500.00</td>
-											<td >
-												<div id="wait">В Ожидании</div>
-												<i class="fas fa-times cancel" title="Отменить Выплату"></i>
-											</td>
-										</tr>
-										<tr>
-											<td>6482055</td>
-											<td>28.09.19 12:42:21</td>
-											<td>+998915080258</td>
-											<td>1500.00</td>
-											<td >
-												<div id="done">Выполнено</div>
-											</td>
-										</tr>
-										<tr>
-											<td>6482055</td>
-											<td>28.09.19 12:42:21</td>
-											<td>+998915080258</td>
-											<td>1500.00</td>
-											<td >
-												<div id="done">Выполнено</div>
-											</td>
-										</tr>
-										<tr>
-											<td>6482055</td>
-											<td>28.09.19 12:42:21</td>
-											<td>+998915080258</td>
-											<td>1500.00</td>
-											<td >
-												<div id="done">Выполнено</div>
-											</td>
-										</tr> -->
 									</tbody>
 								</table>
+							</div>
+							<div class="window-money-repl-history" id="window" data-modal="3" style="display: block;">
+								<!-- История Выводов -->
+								<table align="center">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>Дата</th>
+											<th>Реквизиты</th>
+											<th>Сумма</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>ЗАГРУЗКА</td>
+											<td>ЗАГРУЗКА</td>
+											<td>ЗАГРУЗКА</td>
+											<td>ЗАГРУЗКА</td>
+										</tr>
+										<tr>
+											<td>ЗАГРУЗКА</td>
+											<td>ЗАГРУЗКА</td>
+											<td>ЗАГРУЗКА</td>
+											<td>ЗАГРУЗКА</td>
+										</tr>
+										<tr>
+											<td>ЗАГРУЗКА</td>
+											<td>ЗАГРУЗКА</td>
+											<td>ЗАГРУЗКА</td>
+											<td>ЗАГРУЗКА</td>
+										</tr>
+										<tr>
+											<td>ЗАГРУЗКА</td>
+											<td>ЗАГРУЗКА</td>
+											<td>ЗАГРУЗКА</td>
+											<td>ЗАГРУЗКА</td>
+										</tr>
+										<tr>
+											<td>ЗАГРУЗКА</td>
+											<td>ЗАГРУЗКА</td>
+											<td>ЗАГРУЗКА</td>
+											<td>ЗАГРУЗКА</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="window-game-over" id="window" data-modal="4" style="display: block;">
+								<!-- Игра Завершена -->
+								<h1>Игра Завершена</h1>
+								<p>Чтобы выйти нажмите ОК</p>
+								<a href="/"><button>ОК</button></a>
 							</div>
 						</div>
 					</div>

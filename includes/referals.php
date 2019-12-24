@@ -41,7 +41,7 @@
 							<tbody>
 								<?php 
 								foreach($referals as $ref){
-									$mainRepl = $mainRepl + $ref['user_replenishment'];
+									$mainRepl = $mainRepl + ($ref['user_replenishment'] / 100) * 10;
 								 ?>
 								
 								<tr>

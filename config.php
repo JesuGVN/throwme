@@ -15,6 +15,8 @@ R::setup( 'mysql:host=localhost;dbname=throwme_beta','root', '' ); //for both my
  	redirect_url => 'http://localhost/vk.php'
  );
 
+ $MAX_LEVEL = 4;
+
  define('VK_AUTH_URL', 'https://oauth.vk.com/authorize?client_id='.$VK_APP_INFO['id'].'&redirect_uri='.$VK_APP_INFO['redirect_url'].'&scope=friends,offline,groups,photos&response_type=code');
 
 

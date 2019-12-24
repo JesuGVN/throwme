@@ -13,6 +13,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
 	<meta name="description" content="Мы финансовая пирамида которая помогает разбогатеть каждому желающему, если у тебя в кармане заволялись лишние 10 рублей и ты хочешь больше денег то не проходи мимо, ты не пожалеешь.">
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 
 	<!-- Подключаем библиотеку bootstrap v4 -->
 	<link rel="stylesheet" type="text/css" href="./assets/bootstrap/css/bootstrap.css">
@@ -31,7 +32,7 @@
 
 </head>
 <body>
-	<div class="page-wrapper">
+	<div class="page-wrapper class">
 		<div class="container-fluid">
 			<div class="row justify-content-md-center justify-content-sm-center justify-content-xs-center">
 				<div class="show-menu">
@@ -47,10 +48,10 @@
 					<div class="nav">
 						<ul>
 							<li><a href="/">Главная</a></li>
-							<li><a href="#">Мы Вконтакте</a></li>
+							<li><a href="https://vk.com/throwme_official">Мы Вконтакте</a></li>
 							<li><a href="/withdraws.php">История Выплат</a></li>
-							<li><a href="#">Новости</a></li>
-							<li><a href="#">FAQ</a></li>
+							<li><a href="https://vk.com/throwme_official">Новости</a></li>
+							<li><a href="/faq.php">FAQ</a></li>
 						</ul>
 					</div>
 				</div>

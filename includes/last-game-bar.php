@@ -1,6 +1,6 @@
-			<div class="last-game-bar col-md-12 col-sm-12 col-xs-12">
+			<div class="last-game-bar col-md-12 col-sm-12 col-xs-12 nano">
 					<div class="row justify-content-md-end">
-						<div class="block col-md-9 col-sm-12 col-xs-12">
+						<div class="block col-md-9 col-sm-12 col-xs-12 nano-content">
 							<h3>Последние действия</h3>
 							<table align="center" class="col-md-12 col-sm-12 col-xs-12">
 								<tr>
