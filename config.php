@@ -4,7 +4,7 @@ require('includes/functions.php');
 require('libs/RedBeanPHP/rb.php');
 session_start();
 
-R::setup( 'mysql:host=localhost;dbname=throwme_beta','root', '' ); //for both mysql or mariaDB
+R::setup( 'mysql:host=localhost;dbname=throwme_beta','root', '' ); // host/dbname/dbuser/dbpass
 
 
 
